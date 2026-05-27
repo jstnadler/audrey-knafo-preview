@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled No. 4 — Audrey Knafo</title>
+<!--
+  PROTOTYPE — Product page · Direction B (Split: image left, fixed buy panel right)
+  Warm-paper palette. Real imagery. Conventional e-commerce layout, buy panel always visible.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EB;--ink:#1B2A3F;--gold:#B8975A;--hair:rgba(27,42,63,.16);--muted:rgba(27,42,63,.62);--display:"Fraunces",Georgia,serif;--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,56px);background:var(--paper);box-shadow:0 1px 0 var(--hair)}
+  .wordmark{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+  nav.links{display:flex;gap:28px;align-items:center}
+  nav.links a{color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.04em;text-transform:lowercase;opacity:.8}
+  nav.links a:hover{opacity:1;color:var(--gold)}
+  .lang{display:flex;gap:7px;font-size:12px}
+  .lang button{background:none;border:none;font-family:var(--body);font-size:12px;cursor:pointer;color:var(--ink);opacity:.5;padding:2px}
+  .lang button.active{opacity:1;border-bottom:1px solid var(--gold)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+  .proto{position:fixed;top:60px;left:0;right:0;z-index:40;background:var(--gold);color:#1a1206;font-size:11px;letter-spacing:.04em;text-align:center;padding:5px;font-weight:500}
+
+  main{padding-top:90px}
+  .crumb{max-width:1500px;margin:0 auto;padding:18px clamp(20px,4vw,56px);font-size:13px;letter-spacing:.03em;color:var(--muted)}
+  .crumb a{text-decoration:none}.crumb a:hover{color:var(--gold)}
+
+  .split{max-width:1500px;margin:0 auto;padding:6px clamp(20px,4vw,56px) clamp(60px,8vw,110px);display:grid;grid-template-columns:1.45fr 1fr;gap:clamp(24px,4vw,70px);align-items:start}
+  .gallery{display:flex;flex-direction:column;gap:14px}
+  .gallery .main-img{background:#ddd;overflow:hidden}
+  .gallery .main-img img{width:100%;height:auto;display:block}
+  .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .thumbs img{width:100%;aspect-ratio:1/1;object-fit:cover;cursor:pointer;opacity:.7;transition:opacity .25s}
+  .thumbs img:hover,.thumbs img.on{opacity:1;outline:1px solid var(--gold)}
+
+  .panel{position:sticky;top:96px}
+  .panel h1{font-family:var(--display);font-weight:300;font-size:clamp(30px,3.4vw,46px);line-height:1.02}
+  .panel .metarow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .panel .price{font-family:var(--display);font-size:26px;margin-top:18px}
+  .panel .price small{font-family:var(--body);font-size:12px;color:var(--muted);margin-left:8px}
+  .group{margin-top:22px}
+  .group .lab{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .tiles{display:flex;flex-wrap:wrap;gap:8px}
+  .tile{border:1px solid var(--hair);background:none;font-family:var(--body);font-size:13px;padding:9px 13px;cursor:pointer;color:var(--ink);transition:all .2s;min-width:42px;text-align:center}
+  .tile:hover{border-color:var(--ink)}
+  .tile.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tile.dis{opacity:.32;text-decoration:line-through;cursor:not-allowed}
+  .swatch{display:inline-block;width:13px;height:13px;border-radius:50%;margin-right:6px;vertical-align:-2px;border:1px solid rgba(0,0,0,.15)}
+  .ed{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--hair);padding:11px 13px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+  .ed:hover{border-color:var(--ink)}
+  .ed.sel{border-color:var(--gold);background:rgba(184,151,90,.06)}
+  .ed .l{display:flex;align-items:center;gap:10px;font-size:14px}
+  .ed .dot{width:13px;height:13px;border-radius:50%;border:1px solid var(--ink);flex:none}
+  .ed.sel .dot{background:var(--gold);border-color:var(--gold)}
+  .ed .rem{font-size:11px;color:#b5652f}
+  .addbtn{width:100%;margin-top:22px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);font-family:var(--body);font-size:14px;letter-spacing:.05em;padding:16px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:9px}
+  .addbtn:hover{background:transparent;color:var(--ink)}
+  .assure{margin-top:18px;border-top:1px solid var(--hair);padding-top:16px}
+  .assure div{font-size:12.5px;color:var(--muted);margin-bottom:7px;display:flex;gap:9px}
+  .assure .gd{color:var(--gold)}
+  .about{margin-top:26px;border-top:1px solid var(--hair);padding-top:20px}
+  .about h2{font-family:var(--display);font-weight:300;font-size:20px;margin-bottom:10px}
+  .about p{font-size:14px;color:#4a443c;margin-bottom:12px}
+
+  footer{background:var(--ink);color:var(--paper);padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px) 36px;text-align:center}
+  footer .fw{font-family:var(--display);font-size:14px;letter-spacing:.04em}
+  footer .fb{font-size:11px;opacity:.6;margin-top:14px;letter-spacing:.04em}
+
+  @media(max-width:860px){
+    nav.links{display:none}.burger{display:block}
+    .split{grid-template-columns:1fr;gap:30px}
+    .panel{position:static}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="wordmark" href="../home-b-editorial-split/index.html">AUDREY KNAFO</a>
+  <nav class="links">
+    <a href="../series-portrait/index.html" data-fr="séries" data-en="series">séries</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="../prints/index.html" data-fr="prints" data-en="prints">prints</a>
+    <a href="#" data-fr="contact" data-en="contact">contact</a>
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.3">|</span><button data-lang="en">EN</button></span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+<div class="proto">PROTOTYPE — Product page · Direction B (Split: image left · fixed buy panel right) · not production</div>
+
+<main>
+  <div class="crumb"><a href="../home-b-editorial-split/index.html" data-fr="Accueil" data-en="Home">Accueil</a> / <a href="../series-portrait/index.html">Portrait</a> / Untitled No. 4</div>
+  <div class="split">
+    <div class="gallery">
+      <div class="main-img"><img id="main" src="../assets/portrait-04.jpg" alt="Untitled No. 4"></div>
+      <div class="thumbs">
+        <img class="on" src="../assets/portrait-04.jpg" alt="">
+        <img src="../assets/portrait-03.jpg" alt="">
+        <img src="../assets/portrait-05.jpg" alt="">
+        <img src="../assets/portrait-02.jpg" alt="">
+      </div>
+    </div>
+
+    <aside class="panel">
+      <h1>Untitled No. 4</h1>
+      <div class="metarow">Portrait · 2025 · Paris</div>
+      <div class="price" id="price">180€ <small id="priceNote" data-fr="tirage ouvert" data-en="open edition">tirage ouvert</small></div>
+
+      <div class="group">
+        <div class="lab" data-fr="Taille" data-en="Size">Taille</div>
+        <div class="tiles" id="size">
+          <button class="tile" data-p="60">20×25</button>
+          <button class="tile sel" data-p="180">40×50</button>
+          <button class="tile" data-p="320">60×80</button>
+          <button class="tile" data-p="540">80×120</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="lab" data-fr="Papier" data-en="Paper">Papier</div>
+        <div class="tiles">
+          <button class="tile sel"><span class="swatch" style="background:#f3efe7"></span>Pigmentaire</button>
+          <button class="tile"><span class="swatch" style="background:#cfcdc8"></span><span data-fr="Argentique" data-en="Silver gelatin">Argentique</span></button>
+          <button class="tile dis"><span class="swatch" style="background:#e8e2d6"></span>Platine</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="lab" data-fr="Finition" data-en="Finish">Finition</div>
+        <div class="tiles">
+          <button class="tile sel" data-fr="Mat" data-en="Matte">Mat</button>
+          <button class="tile" data-fr="Perlé" data-en="Pearl">Perlé</button>
+          <button class="tile" data-fr="Lustré" data-en="Lustre">Lustré</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="lab" data-fr="Édition" data-en="Edition">Édition</div>
+        <div id="edition">
+          <div class="ed sel" data-p="180"><span class="l"><span class="dot"></span><span data-fr="Ouverte" data-en="Open">Ouverte</span></span><span class="pr">180€</span></div>
+          <div class="ed" data-p="450"><span class="l"><span class="dot"></span><span><span data-fr="Limitée" data-en="Limited">Limitée</span> /25 · <span class="rem">3 / 25</span></span></span><span class="pr">450€</span></div>
+          <div class="ed" data-p="780"><span class="l"><span class="dot"></span><span data-fr="Épreuve d'artiste" data-en="Artist proof">Épreuve d'artiste</span></span><span class="pr">780€</span></div>
+        </div>
+      </div>
+
+      <button class="addbtn"><span data-fr="Ajouter au panier" data-en="Add to cart">Ajouter au panier</span> <span>→</span></button>
+
+      <div class="assure">
+        <div><span class="gd">✦</span><span data-fr="Signé et numéroté par l'artiste" data-en="Signed and numbered by the artist">Signé et numéroté par l'artiste</span></div>
+        <div><span class="gd">✦</span><span data-fr="Certificat d'authenticité inclus" data-en="Certificate of authenticity included">Certificat d'authenticité inclus</span></div>
+        <div><span class="gd">✦</span><span data-fr="Expédition mondiale · 3–4 semaines" data-en="Worldwide shipping · 3–4 weeks">Expédition mondiale · 3–4 semaines</span></div>
+      </div>
+
+      <div class="about">
+        <h2 data-fr="À propos de l'œuvre" data-en="About the work">À propos de l'œuvre</h2>
+        <p data-fr="Un instant suspendu — le regard qui se détourne, la lumière qui effleure. De la série Portrait, où Audrey cherche l'intimité avant la pose."
+           data-en="A suspended moment — the gaze turning away, the light grazing the skin. From the Portrait series, where Audrey seeks intimacy before the pose.">Un instant suspendu — le regard qui se détourne, la lumière qui effleure. De la série Portrait, où Audrey cherche l'intimité avant la pose.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="fw">Audrey Knafo · Capteuse d'âmes</div>
+  <div class="fb">© 2026 · contact@audreyknafo.com · Instagram @ako_audrey</div>
+</footer>
+
+<script>
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // thumbs swap
+  const main=document.getElementById('main');
+  document.querySelectorAll('.thumbs img').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.thumbs img').forEach(x=>x.classList.remove('on'));t.classList.add('on');main.src=t.src;
+  }));
+
+  // variants
+  document.querySelectorAll('.tiles').forEach(g=>g.querySelectorAll('.tile:not(.dis)').forEach(t=>t.addEventListener('click',()=>{g.querySelectorAll('.tile').forEach(x=>x.classList.remove('sel'));t.classList.add('sel');sync()})));
+  document.querySelectorAll('#edition .ed').forEach(e=>e.addEventListener('click',()=>{document.querySelectorAll('#edition .ed').forEach(x=>x.classList.remove('sel'));e.classList.add('sel');sync()}));
+  function sync(){
+    const sizeP=+document.querySelector('#size .tile.sel').dataset.p;
+    const ed=document.querySelector('#edition .ed.sel');const mult=(+ed.dataset.p)/180;
+    document.getElementById('price').firstChild.textContent=Math.round(sizeP*mult)+'€ ';
+    const txt=ed.querySelector('.l').textContent;
+    const note=txt.includes('/25')?{fr:'édition limitée /25',en:'limited edition /25'}:(txt.includes('artiste')||txt.includes('proof'))?{fr:"épreuve d'artiste",en:'artist proof'}:{fr:'tirage ouvert',en:'open edition'};
+    const pn=document.getElementById('priceNote');pn.setAttribute('data-fr',note.fr);pn.setAttribute('data-en',note.en);pn.textContent=note[document.documentElement.lang]||note.fr;
+  }
+</script>
+</body>
+</html>

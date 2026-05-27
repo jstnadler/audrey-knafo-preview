@@ -100,9 +100,9 @@
     <span class="tag" data-fr="Capteuse d'âmes" data-en="Catcher of souls">Capteuse d'âmes</span>
   </div>
   <nav class="links">
-    <a href="#" data-fr="séries" data-en="series">séries</a>
+    <a href="../series-portrait/index.html" data-fr="séries" data-en="series">séries</a>
     <a href="#" data-fr="à propos" data-en="about">à propos</a>
-    <a href="#prints" data-fr="prints" data-en="prints">prints</a>
+    <a href="../prints/index.html" data-fr="prints" data-en="prints">prints</a>
     <a href="#" data-fr="contact" data-en="contact">contact</a>
     <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.3">|</span><button data-lang="en">EN</button></span>
   </nav>
@@ -123,7 +123,7 @@
 <section class="prints" id="prints">
   <div class="sec-head">
     <h2 data-fr="Acheter une œuvre" data-en="Buy a print">Acheter une œuvre</h2>
-    <a href="#" data-fr="voir tout le shop →" data-en="view full shop →">voir tout le shop →</a>
+    <a href="../prints/index.html" data-fr="voir tout le shop →" data-en="view full shop →">voir tout le shop →</a>
   </div>
   <div class="prints-grid">
     <div class="print"><div class="imgwrap"><img src="../assets/portrait-03.jpg" alt="Tirage"></div><div class="meta"><span>Portrait</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
@@ -141,7 +141,7 @@
       <a class="btn" href="#"><span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span> <span class="arr">→</span></a>
     </div>
     <div class="col"><h4 data-fr="Explorer" data-en="Explore">Explorer</h4>
-      <a href="#" data-fr="Séries" data-en="Series">Séries</a><a href="#" data-fr="Prints" data-en="Prints">Prints</a><a href="#" data-fr="À propos" data-en="About">À propos</a><a href="#" data-fr="Journal" data-en="Journal">Journal</a></div>
+      <a href="../series-portrait/index.html" data-fr="Séries" data-en="Series">Séries</a><a href="../prints/index.html" data-fr="Prints" data-en="Prints">Prints</a><a href="#" data-fr="À propos" data-en="About">À propos</a><a href="#" data-fr="Journal" data-en="Journal">Journal</a></div>
     <div class="col"><h4 data-fr="Suivre" data-en="Follow">Suivre</h4>
       <a href="https://instagram.com/ako_audrey">Instagram</a><a href="#">Facebook</a><a href="mailto:contact@audreyknafo.com">contact@audreyknafo.com</a></div>
   </div>
@@ -154,6 +154,8 @@
   const langBtns=document.querySelectorAll('.lang button');
   function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
   langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  document.querySelectorAll('.grid .tile').forEach(t=>{t.style.cursor='pointer';t.addEventListener('click',()=>location.href='../series-portrait/index.html')});
+  document.querySelectorAll('.prints .print').forEach(c=>{c.style.cursor='pointer';c.addEventListener('click',()=>location.href='../artwork/index.html')});
 </script>
 </body>
 </html>
