@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled No. 4 — Audrey Knafo</title>
+<!--
+  PROTOTYPE — Product (Artwork) Detail Page · Direction A (Cinematic Hero + Buy)
+  Warm-paper palette (matches Home Direction B) for a coherent walkthrough.
+  Real imagery from audreyknafo.com. Fonts Fraunces+Inter (stand-ins). Not production.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EB;--ink:#1B2A3F;--gold:#B8975A;--hair:rgba(27,42,63,.16);--muted:rgba(27,42,63,.62);--display:"Fraunces",Georgia,serif;--body:"Inter",system-ui,sans-serif;--maxw:1440px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit}
+
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,56px);background:var(--paper);box-shadow:0 1px 0 var(--hair)}
+  .wordmark{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.02em;text-decoration:none}
+  nav.links{display:flex;gap:28px;align-items:center}
+  nav.links a{color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.04em;text-transform:lowercase;opacity:.8}
+  nav.links a:hover{opacity:1;color:var(--gold)}
+  .lang{display:flex;gap:7px;font-size:12px}
+  .lang button{background:none;border:none;font-family:var(--body);font-size:12px;cursor:pointer;color:var(--ink);opacity:.5;padding:2px}
+  .lang button.active{opacity:1;border-bottom:1px solid var(--gold)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+  main{padding-top:62px}
+  .crumb{max-width:var(--maxw);margin:0 auto;padding:26px clamp(20px,4vw,56px) 0;font-size:13px;letter-spacing:.03em;color:var(--muted)}
+  .crumb a{text-decoration:none}.crumb a:hover{color:var(--gold)}
+
+  /* HERO */
+  .hero{max-width:var(--maxw);margin:0 auto;padding:24px clamp(20px,4vw,56px) 0;display:flex;flex-direction:column;align-items:center}
+  .hero-img{max-height:80vh;width:auto;max-width:100%;background:#ddd;overflow:hidden}
+  .hero-img img{width:auto;max-width:100%;max-height:80vh;object-fit:contain}
+  .hero-cap{text-align:center;margin:26px 0 0}
+  .hero-cap h1{font-family:var(--display);font-weight:300;font-size:clamp(30px,4vw,52px);line-height:1.04}
+  .hero-cap .meta{font-size:13px;letter-spacing:.06em;color:var(--muted);margin-top:8px;text-transform:uppercase}
+
+  /* BODY split */
+  .body-wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(50px,7vw,100px) clamp(20px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px)}
+  .col-left h2{font-family:var(--display);font-weight:300;font-size:26px;margin-bottom:14px}
+  .rule{width:48px;height:1px;background:var(--gold);margin:0 0 22px}
+  .col-left p{font-size:15px;color:#4a443c;max-width:46ch;margin-bottom:16px}
+  .crops{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+  .crops .c{aspect-ratio:1/1;overflow:hidden;background:#ddd}
+  .crops figcaption{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+
+  /* BUY PANEL */
+  .buy{position:sticky;top:90px;align-self:start;border:1px solid var(--hair);padding:clamp(24px,3vw,38px);background:#fff}
+  .buy .price{font-family:var(--display);font-size:30px;font-weight:400}
+  .buy .price small{font-family:var(--body);font-size:13px;color:var(--muted);margin-left:8px}
+  .group{margin-top:26px}
+  .group .lab{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between}
+  .tiles{display:flex;flex-wrap:wrap;gap:8px}
+  .tile{border:1px solid var(--hair);background:none;font-family:var(--body);font-size:13px;padding:10px 14px;cursor:pointer;color:var(--ink);transition:all .2s;min-width:44px;text-align:center}
+  .tile:hover{border-color:var(--ink)}
+  .tile.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tile.dis{opacity:.32;text-decoration:line-through;cursor:not-allowed}
+  .swatch{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:7px;vertical-align:-2px;border:1px solid rgba(0,0,0,.15)}
+  .edition{margin-top:8px}
+  .ed{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--hair);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:border-color .2s}
+  .ed:hover{border-color:var(--ink)}
+  .ed.sel{border-color:var(--gold);background:rgba(184,151,90,.06)}
+  .ed .l{display:flex;align-items:center;gap:10px;font-size:14px}
+  .ed .dot{width:14px;height:14px;border-radius:50%;border:1px solid var(--ink);flex:none}
+  .ed.sel .dot{background:var(--gold);border-color:var(--gold)}
+  .ed .rem{font-size:11px;color:#b5652f;letter-spacing:.03em}
+  .ed .pr{font-size:14px}
+  .addbtn{width:100%;margin-top:24px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);font-family:var(--body);font-size:14px;letter-spacing:.05em;padding:17px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:9px}
+  .addbtn:hover{background:transparent;color:var(--ink)}
+  .assure{margin-top:20px;border-top:1px solid var(--hair);padding-top:18px}
+  .assure div{font-size:12.5px;color:var(--muted);margin-bottom:8px;display:flex;gap:9px}
+  .assure .gd{color:var(--gold)}
+
+  /* MORE */
+  .more{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,130px)}
+  .more h3{font-family:var(--display);font-weight:300;font-size:26px;margin-bottom:26px}
+  .more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .more-grid a{display:block;aspect-ratio:4/5;overflow:hidden;background:#ddd}
+  .more-grid img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .more-grid a:hover img{transform:scale(1.05)}
+
+  footer{background:var(--ink);color:var(--paper);padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px) 36px;text-align:center}
+  footer .fw{font-family:var(--display);font-size:14px;letter-spacing:.04em}
+  footer .fb{font-size:11px;opacity:.6;margin-top:14px;letter-spacing:.04em}
+
+  /* STICKY BAR */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:space-between;padding:14px clamp(20px,4vw,56px);transform:translateY(110%);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .sticky.show{transform:none}
+  .sticky .info{font-size:13px;letter-spacing:.03em}
+  .sticky .info b{font-family:var(--display);font-weight:400}
+  .sticky button{background:var(--paper);color:var(--ink);border:none;font-family:var(--body);font-size:13px;letter-spacing:.05em;padding:12px 22px;cursor:pointer}
+
+  .proto{position:fixed;top:62px;left:0;right:0;z-index:40;background:var(--gold);color:#1a1206;font-size:11px;letter-spacing:.04em;text-align:center;padding:5px;font-weight:500}
+
+  @media(max-width:860px){
+    nav.links{display:none}.burger{display:block}
+    .body-wrap{grid-template-columns:1fr;gap:40px}
+    .buy{position:static}
+    .more-grid{grid-template-columns:1fr 1fr}
+    .crops{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="wordmark" href="../home-b-editorial-split/index.html">AUDREY KNAFO</a>
+  <nav class="links">
+    <a href="../series-portrait/index.html" data-fr="séries" data-en="series">séries</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="../prints/index.html" data-fr="prints" data-en="prints">prints</a>
+    <a href="#" data-fr="contact" data-en="contact">contact</a>
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.3">|</span><button data-lang="en">EN</button></span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+
+<div class="proto">PROTOTYPE — Product page · Direction A (Cinematic Hero + Buy) · real imagery · not production</div>
+
+<main>
+  <div class="crumb"><a href="../home-b-editorial-split/index.html" data-fr="Accueil" data-en="Home">Accueil</a> / <a href="../series-portrait/index.html">Portrait</a> / Untitled No. 4</div>
+
+  <section class="hero">
+    <div class="hero-img"><img src="../assets/portrait-04.jpg" alt="Untitled No. 4 — série Portrait, Audrey Knafo"></div>
+    <div class="hero-cap">
+      <h1>Untitled No. 4</h1>
+      <div class="meta">Portrait · 2025 · Paris</div>
+    </div>
+  </section>
+
+  <div class="body-wrap">
+    <div class="col-left">
+      <h2 data-fr="À propos de l'œuvre" data-en="About the work">À propos de l'œuvre</h2>
+      <div class="rule"></div>
+      <p data-fr="Un instant suspendu — le regard qui se détourne, la lumière qui effleure. Cette œuvre appartient à la série Portrait, où Audrey cherche l'intimité avant la pose, l'émotion avant l'image."
+         data-en="A suspended moment — the gaze turning away, the light grazing the skin. This work belongs to the Portrait series, where Audrey seeks intimacy before the pose, emotion before the image.">Un instant suspendu — le regard qui se détourne, la lumière qui effleure. Cette œuvre appartient à la série Portrait, où Audrey cherche l'intimité avant la pose, l'émotion avant l'image.</p>
+      <p data-fr="Chaque tirage est réalisé sur papier fine-art Hahnemühle, signé et numéroté à la main."
+         data-en="Each print is produced on Hahnemühle fine-art paper, signed and numbered by hand.">Chaque tirage est réalisé sur papier fine-art Hahnemühle, signé et numéroté à la main.</p>
+      <div class="crops">
+        <figure><div class="c"><img src="../assets/portrait-03.jpg" alt="Détail"></div><figcaption data-fr="Détail — le regard" data-en="Detail — the gaze">Détail — le regard</figcaption></figure>
+        <figure><div class="c"><img src="../assets/portrait-05.jpg" alt="Détail"></div><figcaption data-fr="Détail — la matière" data-en="Detail — the texture">Détail — la matière</figcaption></figure>
+      </div>
+    </div>
+
+    <aside class="buy">
+      <div class="price" id="price">180€ <small id="priceNote" data-fr="tirage ouvert" data-en="open edition">tirage ouvert</small></div>
+
+      <div class="group">
+        <div class="lab"><span data-fr="Taille" data-en="Size">Taille</span></div>
+        <div class="tiles" id="size">
+          <button class="tile" data-p="60">20×25</button>
+          <button class="tile sel" data-p="180">40×50</button>
+          <button class="tile" data-p="320">60×80</button>
+          <button class="tile" data-p="540">80×120</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="lab"><span data-fr="Papier" data-en="Paper">Papier</span></div>
+        <div class="tiles">
+          <button class="tile sel"><span class="swatch" style="background:#f3efe7"></span>Pigmentaire</button>
+          <button class="tile"><span class="swatch" style="background:#cfcdc8"></span><span data-fr="Argentique" data-en="Silver gelatin">Argentique</span></button>
+          <button class="tile dis"><span class="swatch" style="background:#e8e2d6"></span>Platine</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="lab"><span data-fr="Finition" data-en="Finish">Finition</span></div>
+        <div class="tiles">
+          <button class="tile sel" data-fr="Mat" data-en="Matte">Mat</button>
+          <button class="tile" data-fr="Perlé" data-en="Pearl">Perlé</button>
+          <button class="tile" data-fr="Lustré" data-en="Lustre">Lustré</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="lab"><span data-fr="Édition" data-en="Edition">Édition</span></div>
+        <div class="edition" id="edition">
+          <div class="ed sel" data-p="180"><span class="l"><span class="dot"></span><span data-fr="Ouverte" data-en="Open">Ouverte</span></span><span class="pr">180€</span></div>
+          <div class="ed" data-p="450"><span class="l"><span class="dot"></span><span><span data-fr="Limitée" data-en="Limited">Limitée</span> /25 · <span class="rem">3 / 25</span></span></span><span class="pr">450€</span></div>
+          <div class="ed" data-p="780"><span class="l"><span class="dot"></span><span data-fr="Épreuve d'artiste" data-en="Artist proof">Épreuve d'artiste</span></span><span class="pr">780€</span></div>
+        </div>
+      </div>
+
+      <button class="addbtn"><span data-fr="Ajouter au panier" data-en="Add to cart">Ajouter au panier</span> <span>→</span></button>
+
+      <div class="assure">
+        <div><span class="gd">✦</span><span data-fr="Signé et numéroté par l'artiste" data-en="Signed and numbered by the artist">Signé et numéroté par l'artiste</span></div>
+        <div><span class="gd">✦</span><span data-fr="Certificat d'authenticité inclus" data-en="Certificate of authenticity included">Certificat d'authenticité inclus</span></div>
+        <div><span class="gd">✦</span><span data-fr="Expédition mondiale · 3–4 semaines" data-en="Worldwide shipping · 3–4 weeks">Expédition mondiale · 3–4 semaines</span></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="more">
+    <h3 data-fr="Plus de la série Portrait" data-en="More from the Portrait series">Plus de la série Portrait</h3>
+    <div class="more-grid">
+      <a href="#"><img src="../assets/portrait-02.jpg" alt="Untitled"></a>
+      <a href="#"><img src="../assets/portrait-03.jpg" alt="Untitled"></a>
+      <a href="#"><img src="../assets/portrait-05.jpg" alt="Untitled"></a>
+      <a href="#"><img src="../assets/portrait-06.jpg" alt="Untitled"></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fw">Audrey Knafo · Capteuse d'âmes</div>
+  <div class="fb">© 2026 · contact@audreyknafo.com · Instagram @ako_audrey</div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="info"><b>Untitled No. 4</b> · <span id="stk">40×50 · Pigmentaire · Ouverte</span> · <span id="stkPrice">180€</span></div>
+  <button><span data-fr="Ajouter" data-en="Add">Ajouter</span> →</button>
+</div>
+
+<script>
+  // lang
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // single-select tile groups
+  document.querySelectorAll('.tiles').forEach(g=>{
+    g.querySelectorAll('.tile:not(.dis)').forEach(t=>t.addEventListener('click',()=>{
+      g.querySelectorAll('.tile').forEach(x=>x.classList.remove('sel'));t.classList.add('sel');sync();
+    }));
+  });
+  // edition
+  document.querySelectorAll('#edition .ed').forEach(e=>e.addEventListener('click',()=>{
+    document.querySelectorAll('#edition .ed').forEach(x=>x.classList.remove('sel'));e.classList.add('sel');sync();
+  }));
+  function sync(){
+    const sizeP=+document.querySelector('#size .tile.sel').dataset.p;
+    const ed=document.querySelector('#edition .ed.sel');
+    const edP=+ed.dataset.p;
+    // price = size price scaled by edition tier (open=base, limited≈x2.5, AP≈x4.3 baked into ed data for the 40x50 ref)
+    const mult = edP/180; // ratio vs base open price for ref size
+    const price=Math.round(sizeP*mult);
+    document.getElementById('price').firstChild.textContent=price+'€ ';
+    const note=ed.querySelector('.l').textContent.includes('/25')?{fr:'édition limitée /25',en:'limited edition /25'}:(ed.querySelector('.l').textContent.includes('artiste')||ed.querySelector('.l').textContent.includes('proof'))?{fr:"épreuve d'artiste",en:'artist proof'}:{fr:'tirage ouvert',en:'open edition'};
+    const pn=document.getElementById('priceNote');pn.setAttribute('data-fr',note.fr);pn.setAttribute('data-en',note.en);pn.textContent=note[document.documentElement.lang]||note.fr;
+    const sizeLbl=document.querySelector('#size .tile.sel').textContent;
+    document.getElementById('stk').textContent=sizeLbl+' · Pigmentaire';
+    document.getElementById('stkPrice').textContent=price+'€';
+  }
+
+  // sticky bar after scrolling past hero
+  const sticky=document.getElementById('sticky');
+  addEventListener('scroll',()=>{sticky.classList.toggle('show',scrollY>window.innerHeight*0.8)});
+</script>
+</body>
+</html>

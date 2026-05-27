@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portrait — Audrey Knafo</title>
+<!--
+  PROTOTYPE — Series page · Direction A (Editorial Spread)
+  Warm-paper palette (matches Home B). Real imagery from audreyknafo.com.
+  Includes a minimal custom lightbox with a buy CTA into the PDP. Not production.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EB;--ink:#1B2A3F;--gold:#B8975A;--hair:rgba(27,42,63,.16);--muted:rgba(27,42,63,.62);--display:"Fraunces",Georgia,serif;--body:"Inter",system-ui,sans-serif;--maxw:1360px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,56px);background:var(--paper);box-shadow:0 1px 0 var(--hair)}
+  .wordmark{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.02em;text-decoration:none;color:var(--ink)}
+  nav.links{display:flex;gap:28px;align-items:center}
+  nav.links a{color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.04em;text-transform:lowercase;opacity:.8}
+  nav.links a:hover{opacity:1;color:var(--gold)}
+  .lang{display:flex;gap:7px;font-size:12px}
+  .lang button{background:none;border:none;font-family:var(--body);font-size:12px;cursor:pointer;color:var(--ink);opacity:.5;padding:2px}
+  .lang button.active{opacity:1;border-bottom:1px solid var(--gold)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+  .proto{position:fixed;top:60px;left:0;right:0;z-index:40;background:var(--gold);color:#1a1206;font-size:11px;letter-spacing:.04em;text-align:center;padding:5px;font-weight:500}
+
+  /* SERIES HEAD */
+  .shead{max-width:var(--maxw);margin:0 auto;padding:140px clamp(20px,4vw,56px) 20px}
+  .shead h1{font-family:var(--display);font-weight:300;font-size:clamp(44px,7vw,96px);line-height:.98}
+  .shead .meta{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+  .shead .rule{width:54px;height:1px;background:var(--gold);margin:26px 0}
+  .shead p{font-family:var(--display);font-style:italic;font-size:clamp(18px,1.8vw,24px);max-width:34ch;color:#4a443c}
+
+  /* EDITORIAL SPREAD */
+  .spread{max-width:var(--maxw);margin:0 auto;padding:clamp(40px,6vw,90px) clamp(20px,4vw,56px) 0}
+  .row{margin-bottom:clamp(40px,6vw,90px)}
+  figure{margin:0;cursor:pointer;overflow:hidden}
+  figure img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  figure:hover img{transform:scale(1.03)}
+  .single{max-width:62%;margin:0 auto}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,30px)}
+  .full{width:100%}
+  .offset-l{max-width:46%}
+  .offset-r{max-width:46%;margin-left:auto}
+  .quote{text-align:center;padding:clamp(30px,5vw,70px) 8%;font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(22px,2.6vw,38px);line-height:1.35;color:var(--ink)}
+
+  /* CTA into prints */
+  .seriescta{max-width:var(--maxw);margin:clamp(30px,5vw,60px) auto 0;padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,120px);text-align:center}
+  .seriescta a{display:inline-flex;gap:9px;align-items:center;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.05em;padding:15px 28px;transition:all .3s}
+  .seriescta a:hover{background:var(--ink);color:var(--paper)}
+
+  footer{background:var(--ink);color:var(--paper);padding:clamp(50px,7vw,90px) clamp(20px,4vw,56px) 36px;text-align:center}
+  footer .fw{font-family:var(--display);font-size:14px;letter-spacing:.04em}
+  footer .fb{font-size:11px;opacity:.6;margin-top:14px;letter-spacing:.04em}
+
+  /* LIGHTBOX */
+  .lb{position:fixed;inset:0;z-index:100;background:rgba(20,22,28,.96);display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px}
+  .lb.open{display:flex}
+  .lb img{max-width:90vw;max-height:74vh;width:auto;height:auto;object-fit:contain}
+  .lb .cap{color:#f3f0ea;margin-top:18px;text-align:center}
+  .lb .cap .t{font-family:var(--display);font-size:20px}
+  .lb .cap .m{font-size:12px;letter-spacing:.06em;opacity:.7;margin-top:4px;text-transform:uppercase}
+  .lb .cap a{display:inline-flex;gap:8px;align-items:center;margin-top:16px;border:1px solid #f3f0ea;color:#f3f0ea;text-decoration:none;font-size:13px;letter-spacing:.05em;padding:12px 24px;transition:all .3s}
+  .lb .cap a:hover{background:#f3f0ea;color:#15161c}
+  .lb .x{position:absolute;top:24px;right:30px;font-size:28px;color:#f3f0ea;background:none;border:none;cursor:pointer;line-height:1}
+  .lb .nav{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;color:#f3f0ea;background:none;border:none;cursor:pointer;padding:10px 18px;opacity:.7}
+  .lb .nav:hover{opacity:1}
+  .lb .prev{left:14px}.lb .next{right:14px}
+  .lb .count{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#f3f0ea;font-size:12px;letter-spacing:.1em;opacity:.6}
+
+  @media(max-width:860px){
+    nav.links{display:none}.burger{display:block}
+    .single,.offset-l,.offset-r{max-width:100%}
+    .two{grid-template-columns:1fr;gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="wordmark" href="../home-b-editorial-split/index.html">AUDREY KNAFO</a>
+  <nav class="links">
+    <a href="#" data-fr="séries" data-en="series">séries</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="../prints/index.html" data-fr="prints" data-en="prints">prints</a>
+    <a href="#" data-fr="contact" data-en="contact">contact</a>
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.3">|</span><button data-lang="en">EN</button></span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+<div class="proto">PROTOTYPE — Series page · Direction A (Editorial Spread) · click any image for the lightbox · not production</div>
+
+<section class="shead">
+  <h1>Portrait</h1>
+  <div class="meta" data-fr="2025 · douze œuvres" data-en="2025 · twelve works">2025 · douze œuvres</div>
+  <div class="rule"></div>
+  <p data-fr="L'intimité avant la pose. L'émotion avant l'image." data-en="Intimacy before the pose. Emotion before the image.">L'intimité avant la pose. L'émotion avant l'image.</p>
+</section>
+
+<section class="spread" id="spread">
+  <div class="row"><figure class="single" data-i="0"><img src="../assets/portrait-04.jpg" alt="Portrait — Untitled No. 4"></figure></div>
+  <div class="row two">
+    <figure data-i="1"><img src="../assets/portrait-03.jpg" alt="Portrait"></figure>
+    <figure data-i="2"><img src="../assets/portrait-05.jpg" alt="Portrait"></figure>
+  </div>
+  <div class="quote" data-fr="« Capteuse d'âmes — je capture l'essence des regards et l'intensité des émotions. »" data-en="“Catcher of souls — I capture the essence of gazes and the intensity of emotions.”">« Capteuse d'âmes — je capture l'essence des regards et l'intensité des émotions. »</div>
+  <div class="row"><figure class="full" data-i="3"><img src="../assets/portrait-01.jpg" alt="Portrait"></figure></div>
+  <div class="row"><figure class="offset-l" data-i="4"><img src="../assets/portrait-02.jpg" alt="Portrait"></figure></div>
+  <div class="row"><figure class="offset-r" data-i="5"><img src="../assets/portrait-06.jpg" alt="Portrait"></figure></div>
+</section>
+
+<div class="seriescta">
+  <a href="../prints/index.html"><span data-fr="Acheter un tirage de cette série" data-en="Buy a print from this series">Acheter un tirage de cette série</span> →</a>
+</div>
+
+<footer>
+  <div class="fw">Audrey Knafo · Capteuse d'âmes</div>
+  <div class="fb">© 2026 · contact@audreyknafo.com · Instagram @ako_audrey</div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="x" id="lbx">✕</button>
+  <button class="nav prev" id="lbprev">‹</button>
+  <img id="lbimg" src="" alt="">
+  <div class="cap">
+    <div class="t">Untitled <span id="lbno">No. 4</span></div>
+    <div class="m">Portrait · 2025</div>
+    <a href="../artwork/index.html"><span data-fr="Voir l'œuvre · à partir de 60€" data-en="View the work · from 60€">Voir l'œuvre · à partir de 60€</span> →</a>
+  </div>
+  <button class="nav next" id="lbnext">›</button>
+  <div class="count" id="lbcount"></div>
+</div>
+
+<script>
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // lightbox
+  const figs=[...document.querySelectorAll('#spread figure')];
+  const srcs=figs.map(f=>f.querySelector('img').src);
+  const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbno=document.getElementById('lbno'),lbcount=document.getElementById('lbcount');
+  let cur=0;
+  function open(i){cur=i;lbimg.src=srcs[i];lbno.textContent='No. '+(i+1);lbcount.textContent=(i+1)+' / '+srcs.length;lb.classList.add('open');document.body.style.overflow='hidden'}
+  function close(){lb.classList.remove('open');document.body.style.overflow=''}
+  function step(d){cur=(cur+d+srcs.length)%srcs.length;open(cur)}
+  figs.forEach((f,i)=>f.addEventListener('click',()=>open(i)));
+  document.getElementById('lbx').onclick=close;
+  document.getElementById('lbprev').onclick=()=>step(-1);
+  document.getElementById('lbnext').onclick=()=>step(1);
+  lb.addEventListener('click',e=>{if(e.target===lb)close()});
+  addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+</script>
+</body>
+</html>
