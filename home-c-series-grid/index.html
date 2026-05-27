@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audrey Knafo — Capteuse d'âmes</title>
+<!--
+  PROTOTYPE — Home Direction C (Series-First Grid)
+  Neutral gallery palette. Lands directly on all 6 series. Most navigable.
+  Real imagery from audreyknafo.com (assets/). Fonts: Fraunces + Inter (free stand-ins;
+  production spec = GT Sectra + Inter). Static mockup, not production.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE4;         /* warm gallery grey */
+    --ink:#171614;
+    --muted:rgba(23,22,20,.6);
+    --gold:#9A7B4F;
+    --hair:rgba(23,22,20,.14);
+    --display:"Fraunces", Georgia, serif;
+    --body:"Inter", system-ui, sans-serif;
+    --maxw:1600px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* NAV — single line with statement inline */
+  header.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px clamp(20px,3vw,44px);background:var(--paper);border-bottom:1px solid var(--hair)}
+  .brand{display:flex;align-items:baseline;gap:18px;min-width:0}
+  .wordmark{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.03em;white-space:nowrap}
+  .brand .tag{font-family:var(--display);font-style:italic;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  nav.links{display:flex;gap:26px;align-items:center}
+  nav.links a{color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.05em;text-transform:lowercase;opacity:.8;transition:opacity .25s;position:relative}
+  nav.links a:hover{opacity:1}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .3s}
+  nav.links a:hover::after{width:100%}
+  .lang{display:flex;gap:7px;font-size:12px;letter-spacing:.05em}
+  .lang button{background:none;border:none;font-family:var(--body);font-size:12px;cursor:pointer;color:var(--ink);opacity:.5;transition:opacity .2s;padding:2px}
+  .lang button.active{opacity:1;border-bottom:1px solid var(--gold)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+  /* SERIES GRID — fills viewport */
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--hair)}
+  .tile{position:relative;overflow:hidden;aspect-ratio:1/1;cursor:pointer;background:#cdc8c0}
+  .tile img{filter:brightness(.92);transition:transform 1s cubic-bezier(.2,.7,.2,1),filter .6s}
+  .tile:hover img{transform:scale(1.05);filter:brightness(.7)}
+  .tile .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0) 55%);transition:background .5s}
+  .tile:hover .ov{background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.15))}
+  .tile .yr{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+  .tile .nm{font-family:var(--display);font-weight:400;font-size:clamp(24px,2.4vw,40px);line-height:1.02;margin-top:5px}
+  .tile .go{font-size:12px;letter-spacing:.06em;margin-top:10px;opacity:0;transform:translateY(8px);transition:all .4s}
+  .tile:hover .go{opacity:.9;transform:none}
+
+  /* PRINTS STRIP */
+  section.prints{padding:clamp(60px,7vw,110px) clamp(20px,4vw,56px);max-width:var(--maxw);margin:0 auto}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:40px}
+  .sec-head h2{font-family:var(--display);font-weight:300;font-size:clamp(26px,3vw,40px)}
+  .sec-head a{font-size:13px;letter-spacing:.04em;color:var(--muted);text-decoration:none}
+  .sec-head a:hover{color:var(--gold)}
+  .prints-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,1.4vw,18px)}
+  .print{cursor:pointer}
+  .print .imgwrap{position:relative;overflow:hidden;aspect-ratio:4/5;background:#cdc8c0}
+  .print img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .print:hover img{transform:scale(1.05)}
+  .print .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;font-size:11px;letter-spacing:.02em;color:var(--muted)}
+  .print .meta .p{color:var(--gold)}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:clamp(60px,8vw,100px) clamp(20px,4vw,56px) 40px}
+  .foot-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+  footer h3{font-family:var(--display);font-weight:300;font-size:clamp(28px,3.4vw,48px);line-height:1;max-width:14ch}
+  .foot-grid .btn{display:inline-flex;gap:9px;align-items:center;margin-top:28px;border:1px solid var(--paper);color:var(--paper);text-decoration:none;font-size:13px;letter-spacing:.05em;padding:14px 26px;transition:all .3s}
+  .foot-grid .btn:hover{background:var(--paper);color:var(--ink)}
+  footer .col h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:16px}
+  footer .col a{display:block;color:var(--paper);text-decoration:none;font-size:14px;opacity:.85;margin-bottom:9px}
+  footer .col a:hover{color:var(--gold)}
+  .foot-bottom{max-width:var(--maxw);margin:60px auto 0;padding-top:24px;border-top:1px solid rgba(237,234,228,.16);display:flex;justify-content:space-between;font-size:11px;letter-spacing:.04em;opacity:.6;flex-wrap:wrap;gap:10px}
+
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--gold);color:#fff;font-size:11px;letter-spacing:.04em;text-align:center;padding:7px;font-weight:500}
+
+  @media(max-width:860px){
+    nav.links{display:none}
+    .burger{display:block}
+    .brand .tag{display:none}
+    .grid{grid-template-columns:1fr 1fr;gap:2px}
+    .prints-grid{grid-template-columns:1fr 1fr;gap:14px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="brand">
+    <span class="wordmark">AUDREY KNAFO</span>
+    <span class="tag" data-fr="Capteuse d'âmes" data-en="Catcher of souls">Capteuse d'âmes</span>
+  </div>
+  <nav class="links">
+    <a href="#" data-fr="séries" data-en="series">séries</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="#prints" data-fr="prints" data-en="prints">prints</a>
+    <a href="#" data-fr="contact" data-en="contact">contact</a>
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.3">|</span><button data-lang="en">EN</button></span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+
+<!-- SERIES GRID -->
+<div class="grid">
+  <div class="tile"><img src="../assets/portrait-04.jpg" alt="Série Portrait"><div class="ov"><div class="yr">2025</div><div class="nm">Portrait</div><div class="go" data-fr="voir la série →" data-en="view series →">voir la série →</div></div></div>
+  <div class="tile"><img src="../assets/standup-05.jpg" alt="Série Stand Up"><div class="ov"><div class="yr">2023</div><div class="nm">Stand Up</div><div class="go" data-fr="voir la série →" data-en="view series →">voir la série →</div></div></div>
+  <div class="tile"><img src="../assets/backstage-04.jpg" alt="Série Backstage"><div class="ov"><div class="yr">2023</div><div class="nm">Backstage</div><div class="go" data-fr="voir la série →" data-en="view series →">voir la série →</div></div></div>
+  <div class="tile"><img src="../assets/liveshow-03.jpg" alt="Série Live Show"><div class="ov"><div class="yr">2023</div><div class="nm">Live Show</div><div class="go" data-fr="voir la série →" data-en="view series →">voir la série →</div></div></div>
+  <div class="tile"><img src="../assets/fashion-04.jpg" alt="Série Fashion"><div class="ov"><div class="yr">2023</div><div class="nm">Fashion</div><div class="go" data-fr="voir la série →" data-en="view series →">voir la série →</div></div></div>
+  <div class="tile"><img src="../assets/awards-02.jpg" alt="Série Awards"><div class="ov"><div class="yr">2023</div><div class="nm">Awards</div><div class="go" data-fr="voir la série →" data-en="view series →">voir la série →</div></div></div>
+</div>
+
+<!-- PRINTS -->
+<section class="prints" id="prints">
+  <div class="sec-head">
+    <h2 data-fr="Acheter une œuvre" data-en="Buy a print">Acheter une œuvre</h2>
+    <a href="#" data-fr="voir tout le shop →" data-en="view full shop →">voir tout le shop →</a>
+  </div>
+  <div class="prints-grid">
+    <div class="print"><div class="imgwrap"><img src="../assets/portrait-03.jpg" alt="Tirage"></div><div class="meta"><span>Portrait</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+    <div class="print"><div class="imgwrap"><img src="../assets/standup-04.jpg" alt="Tirage"></div><div class="meta"><span>Stand Up</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+    <div class="print"><div class="imgwrap"><img src="../assets/fashion-02.jpg" alt="Tirage"></div><div class="meta"><span>Fashion</span><span class="p" data-fr="dès 90€" data-en="from 90€">dès 90€</span></div></div>
+    <div class="print"><div class="imgwrap"><img src="../assets/liveshow-08.jpg" alt="Tirage"></div><div class="meta"><span>Live Show</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+    <div class="print"><div class="imgwrap"><img src="../assets/backstage-07.jpg" alt="Tirage"></div><div class="meta"><span>Backstage</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3 data-fr="Travaillons ensemble." data-en="Let's work together.">Travaillons ensemble.</h3>
+      <a class="btn" href="#"><span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span> <span class="arr">→</span></a>
+    </div>
+    <div class="col"><h4 data-fr="Explorer" data-en="Explore">Explorer</h4>
+      <a href="#" data-fr="Séries" data-en="Series">Séries</a><a href="#" data-fr="Prints" data-en="Prints">Prints</a><a href="#" data-fr="À propos" data-en="About">À propos</a><a href="#" data-fr="Journal" data-en="Journal">Journal</a></div>
+    <div class="col"><h4 data-fr="Suivre" data-en="Follow">Suivre</h4>
+      <a href="https://instagram.com/ako_audrey">Instagram</a><a href="#">Facebook</a><a href="mailto:contact@audreyknafo.com">contact@audreyknafo.com</a></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Audrey Knafo · Capteuse d'âmes</span><span data-fr="Mentions légales · Confidentialité · Livraison" data-en="Legal · Privacy · Shipping">Mentions légales · Confidentialité · Livraison</span></div>
+</footer>
+
+<div class="proto"><b>PROTOTYPE</b> — Home Direction C (Series-First Grid) · real imagery from audreyknafo.com · free font stand-ins · not production</div>
+
+<script>
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+</script>
+</body>
+</html>

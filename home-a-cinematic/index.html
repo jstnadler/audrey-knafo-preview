@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audrey Knafo — Capteuse d'âmes</title>
+<!--
+  PROTOTYPE — Home Direction A (Cinematic Hero)
+  Dark/moody palette chosen to complement Audrey's dramatic B&W work.
+  Real imagery from audreyknafo.com (assets/). Fonts: Fraunces + Inter (free stand-ins;
+  production spec = GT Sectra + Inter). Static mockup, not production.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0E10;            /* near-black */
+    --ink:#F3F0EA;           /* bone text */
+    --muted:rgba(243,240,234,.62);
+    --gold:#C8A86B;
+    --hair:rgba(243,240,234,.16);
+    --display:"Fraunces", Georgia, serif;
+    --body:"Inter", system-ui, sans-serif;
+    --maxw:1500px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* NAV */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:26px clamp(20px,4vw,56px);transition:background .4s,padding .4s,box-shadow .4s}
+  header.nav.scrolled{background:rgba(14,14,16,.86);backdrop-filter:blur(8px);padding:16px clamp(20px,4vw,56px);box-shadow:0 1px 0 var(--hair)}
+  .wordmark{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.03em}
+  nav.links{display:flex;gap:30px;align-items:center}
+  nav.links a{color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.05em;text-transform:lowercase;opacity:.82;transition:opacity .25s;position:relative}
+  nav.links a:hover{opacity:1}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .3s}
+  nav.links a:hover::after{width:100%}
+  .lang{display:flex;gap:7px;font-size:12px;letter-spacing:.05em;margin-left:8px}
+  .lang button{background:none;border:none;font-family:var(--body);font-size:12px;cursor:pointer;color:var(--ink);opacity:.5;transition:opacity .2s;padding:2px}
+  .lang button.active{opacity:1;border-bottom:1px solid var(--gold)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+  /* HERO full-bleed */
+  .hero{position:relative;height:100vh;min-height:560px;overflow:hidden}
+  .hero .slide{position:absolute;inset:0;opacity:0;animation:fade 24s infinite}
+  .hero .slide:nth-child(1){animation-delay:0s}
+  .hero .slide:nth-child(2){animation-delay:8s}
+  .hero .slide:nth-child(3){animation-delay:16s}
+  @keyframes fade{0%{opacity:0}4%{opacity:1}30%{opacity:1}36%{opacity:0}100%{opacity:0}}
+  .hero .slide img{filter:brightness(.82)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,14,16,.45) 0%,rgba(14,14,16,0) 28%,rgba(14,14,16,.15) 60%,rgba(14,14,16,.85) 100%)}
+  .hero-copy{position:absolute;z-index:3;left:0;right:0;bottom:clamp(60px,9vh,120px);text-align:center;padding:0 24px}
+  .hero-copy .statement{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(26px,3.6vw,52px);line-height:1.25;max-width:18ch;margin:0 auto;letter-spacing:.005em;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+  .hero-copy .sub{font-size:13px;letter-spacing:.08em;color:var(--muted);margin-top:20px}
+  .hero-copy .cta{display:inline-flex;gap:10px;align-items:center;margin-top:34px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.06em;padding:15px 30px;transition:all .3s;background:rgba(14,14,16,.2)}
+  .hero-copy .cta:hover{background:var(--ink);color:var(--bg)}
+  .hero-copy .cta .arr{transition:transform .3s}
+  .hero-copy .cta:hover .arr{transform:translateX(4px)}
+  .scrollcue{position:absolute;z-index:3;left:50%;transform:translateX(-50%);bottom:24px;font-size:11px;letter-spacing:.2em;color:var(--muted);animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+  /* SÉRIES */
+  section.series{padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px) clamp(30px,4vw,50px);max-width:var(--maxw);margin:0 auto}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:46px}
+  .sec-head h2{font-family:var(--display);font-weight:300;font-size:clamp(28px,3vw,44px)}
+  .sec-head a{font-size:13px;letter-spacing:.04em;color:var(--muted);text-decoration:none}
+  .sec-head a:hover{color:var(--gold)}
+  .series-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px)}
+  .series-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;background:#1a1a1d}
+  .series-card img{filter:brightness(.78) grayscale(.1);transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .6s}
+  .series-card:hover img{transform:scale(1.05);filter:brightness(.92) grayscale(0)}
+  .series-card .label{position:absolute;left:0;bottom:0;padding:24px 26px;width:100%}
+  .series-card .label .yr{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .series-card .label .nm{font-family:var(--display);font-size:clamp(22px,2.2vw,30px);font-weight:400;line-height:1.05;margin-top:4px}
+
+  /* PRINTS */
+  section.prints{padding:clamp(40px,5vw,70px) clamp(20px,4vw,56px) clamp(80px,10vw,140px);max-width:var(--maxw);margin:0 auto}
+  .prints-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,22px)}
+  .print{cursor:pointer}
+  .print .imgwrap{position:relative;overflow:hidden;aspect-ratio:1/1;background:#1a1a1d}
+  .print img{filter:brightness(.85);transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s}
+  .print:hover img{transform:scale(1.05);filter:brightness(1)}
+  .print .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:11px;font-size:12px;letter-spacing:.02em;color:var(--muted)}
+  .print .meta .p{opacity:0;transition:opacity .3s;color:var(--gold)}
+  .print:hover .meta .p{opacity:1}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--hair);padding:clamp(60px,8vw,100px) clamp(20px,4vw,56px) 40px}
+  .foot-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+  footer h3{font-family:var(--display);font-weight:300;font-size:clamp(28px,3.4vw,48px);line-height:1;max-width:14ch}
+  .foot-grid .btn{display:inline-flex;gap:9px;align-items:center;margin-top:28px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.05em;padding:14px 26px;transition:all .3s}
+  .foot-grid .btn:hover{background:var(--ink);color:var(--bg)}
+  footer .col h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+  footer .col a{display:block;color:var(--ink);text-decoration:none;font-size:14px;opacity:.85;margin-bottom:9px}
+  footer .col a:hover{color:var(--gold)}
+  .foot-bottom{max-width:var(--maxw);margin:60px auto 0;padding-top:24px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;font-size:11px;letter-spacing:.04em;color:var(--muted);flex-wrap:wrap;gap:10px}
+
+  .reveal{opacity:0;transform:translateY(38px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--gold);color:#1a1206;font-size:11px;letter-spacing:.04em;text-align:center;padding:7px;font-weight:500}
+
+  @media(max-width:860px){
+    nav.links{display:none}
+    .burger{display:block}
+    .lang{position:absolute;right:58px;top:28px}
+    .series-grid{grid-template-columns:1fr 1fr;gap:12px}
+    .prints-grid{grid-template-columns:1fr 1fr;gap:14px}
+    .print .meta .p{opacity:1}
+    .foot-grid{grid-template-columns:1fr;gap:30px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wordmark">AUDREY KNAFO</div>
+  <nav class="links">
+    <a href="#series" data-fr="séries" data-en="series">séries</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="#" data-fr="journal" data-en="journal">journal</a>
+    <a href="#prints" data-fr="prints" data-en="prints">prints</a>
+    <a href="#" data-fr="contact" data-en="contact">contact</a>
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.3">|</span><button data-lang="en">EN</button></span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="slide"><img src="../assets/portrait-04.jpg" alt="Portrait — Audrey Knafo"></div>
+  <div class="slide"><img src="../assets/standup-05.jpg" alt="Stand Up — Audrey Knafo"></div>
+  <div class="slide"><img src="../assets/backstage-07.jpg" alt="Backstage — Audrey Knafo"></div>
+  <div class="hero-copy">
+    <div class="statement" data-fr="Capteuse d'âmes." data-en="Catcher of souls.">Capteuse d'âmes.</div>
+    <div class="sub" data-fr="je capture l'essence des regards et l'intensité des émotions"
+         data-en="I capture the essence of gazes and the intensity of emotions">je capture l'essence des regards et l'intensité des émotions</div>
+    <a class="cta" href="#series"><span data-fr="Explorer mon univers" data-en="Explore my universe">Explorer mon univers</span> <span class="arr">→</span></a>
+  </div>
+  <div class="scrollcue">↓</div>
+</section>
+
+<!-- SÉRIES -->
+<section class="series" id="series">
+  <div class="sec-head reveal">
+    <h2 data-fr="Séries" data-en="Series">Séries</h2>
+    <a href="#" data-fr="voir toutes les séries →" data-en="view all series →">voir toutes les séries →</a>
+  </div>
+  <div class="series-grid">
+    <div class="series-card reveal"><img src="../assets/portrait-03.jpg" alt="Série Portrait"><div class="label"><div class="yr">2025</div><div class="nm">Portrait</div></div></div>
+    <div class="series-card reveal"><img src="../assets/standup-02.jpg" alt="Série Stand Up"><div class="label"><div class="yr">2023</div><div class="nm">Stand Up</div></div></div>
+    <div class="series-card reveal"><img src="../assets/backstage-04.jpg" alt="Série Backstage"><div class="label"><div class="yr">2023</div><div class="nm">Backstage</div></div></div>
+    <div class="series-card reveal"><img src="../assets/liveshow-02.jpg" alt="Série Live Show"><div class="label"><div class="yr">2023</div><div class="nm">Live Show</div></div></div>
+    <div class="series-card reveal"><img src="../assets/fashion-04.jpg" alt="Série Fashion"><div class="label"><div class="yr">2023</div><div class="nm">Fashion</div></div></div>
+    <div class="series-card reveal"><img src="../assets/awards-02.jpg" alt="Série Awards"><div class="label"><div class="yr">2023</div><div class="nm">Awards</div></div></div>
+  </div>
+</section>
+
+<!-- PRINTS -->
+<section class="prints" id="prints">
+  <div class="sec-head reveal">
+    <h2 data-fr="Tirages disponibles" data-en="Available prints">Tirages disponibles</h2>
+    <a href="#" data-fr="voir le shop →" data-en="view the shop →">voir le shop →</a>
+  </div>
+  <div class="prints-grid">
+    <div class="print reveal"><div class="imgwrap"><img src="../assets/portrait-05.jpg" alt="Tirage"></div><div class="meta"><span>Untitled No. 1 · Portrait</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+    <div class="print reveal"><div class="imgwrap"><img src="../assets/standup-04.jpg" alt="Tirage"></div><div class="meta"><span>Untitled No. 2 · Stand Up</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+    <div class="print reveal"><div class="imgwrap"><img src="../assets/fashion-08.jpg" alt="Tirage"></div><div class="meta"><span>Untitled No. 3 · Fashion</span><span class="p" data-fr="dès 90€" data-en="from 90€">dès 90€</span></div></div>
+    <div class="print reveal"><div class="imgwrap"><img src="../assets/liveshow-01.jpg" alt="Tirage"></div><div class="meta"><span>Untitled No. 4 · Live Show</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3 data-fr="Travaillons ensemble." data-en="Let's work together.">Travaillons ensemble.</h3>
+      <a class="btn" href="#"><span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span> <span class="arr">→</span></a>
+    </div>
+    <div class="col"><h4 data-fr="Explorer" data-en="Explore">Explorer</h4>
+      <a href="#" data-fr="Séries" data-en="Series">Séries</a><a href="#" data-fr="Prints" data-en="Prints">Prints</a><a href="#" data-fr="À propos" data-en="About">À propos</a><a href="#" data-fr="Journal" data-en="Journal">Journal</a></div>
+    <div class="col"><h4 data-fr="Suivre" data-en="Follow">Suivre</h4>
+      <a href="https://instagram.com/ako_audrey">Instagram</a><a href="#">Facebook</a><a href="mailto:contact@audreyknafo.com">contact@audreyknafo.com</a></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Audrey Knafo · Capteuse d'âmes</span><span data-fr="Mentions légales · Confidentialité · Livraison" data-en="Legal · Privacy · Shipping">Mentions légales · Confidentialité · Livraison</span></div>
+</footer>
+
+<div class="proto"><b>PROTOTYPE</b> — Home Direction A (Cinematic Hero) · real imagery from audreyknafo.com · free font stand-ins · not production</div>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40)});
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3*70)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

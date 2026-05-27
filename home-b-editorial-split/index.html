@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audrey Knafo — Capteuse d'âmes</title>
+<!--
+  PROTOTYPE — Home Direction B (Editorial Split)
+  Built by GallerySmith for Justin to show Audrey.
+  NOT production. Notes:
+    - Fonts: Fraunces (display) + Inter (body) are FREE Google Fonts stand-ins.
+      Production spec is GT Sectra (display) + Inter. Swap at build time.
+    - Images: Unsplash placeholders, clearly stand-ins for Audrey's real work.
+    - This is a static mockup. The real build is a Shopify theme on a dev store.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F1EB;
+    --ink:#1B2A3F;
+    --gold:#B8975A;
+    --hair:rgba(27,42,63,.16);
+    --display:"Fraunces", Georgia, serif;       /* prod: GT Sectra */
+    --body:"Inter", system-ui, sans-serif;       /* prod: Inter / Söhne */
+    --maxw:1440px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px clamp(20px,4vw,56px);
+    transition:background .4s ease, box-shadow .4s ease, padding .4s ease;
+  }
+  header.nav.scrolled{background:var(--paper);box-shadow:0 1px 0 var(--hair);padding:14px clamp(20px,4vw,56px)}
+  .wordmark{font-family:var(--display);font-weight:500;font-size:18px;letter-spacing:.02em}
+  nav.links{display:flex;gap:30px;align-items:center}
+  nav.links a{
+    color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.04em;
+    text-transform:lowercase;opacity:.78;transition:opacity .25s;position:relative;
+  }
+  nav.links a:hover{opacity:1}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .3s}
+  nav.links a:hover::after{width:100%}
+  .lang{display:flex;gap:7px;font-size:12px;letter-spacing:.05em;margin-left:8px}
+  .lang button{background:none;border:none;font-family:var(--body);font-size:12px;cursor:pointer;color:var(--ink);opacity:.5;transition:opacity .2s;padding:2px}
+  .lang button.active{opacity:1;border-bottom:1px solid var(--gold)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+  /* ---------- HERO SPLIT ---------- */
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+  .hero-text{
+    display:flex;flex-direction:column;justify-content:center;
+    padding:140px clamp(32px,5vw,90px) 80px;
+  }
+  .hero-text h1{
+    font-family:var(--display);font-weight:300;line-height:.96;
+    font-size:clamp(48px,7vw,104px);letter-spacing:-.01em;
+  }
+  .rule{width:54px;height:1px;background:var(--gold);margin:34px 0 30px}
+  .statement{
+    font-family:var(--display);font-style:italic;font-weight:300;
+    font-size:clamp(20px,1.7vw,27px);line-height:1.4;max-width:30ch;opacity:.9;
+  }
+  .statement small{display:block;font-family:var(--body);font-style:normal;font-size:12px;letter-spacing:.06em;opacity:.55;margin-top:14px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:46px}
+  .btn{
+    font-family:var(--body);font-size:13px;letter-spacing:.05em;
+    padding:15px 26px;text-decoration:none;cursor:pointer;border:1px solid var(--ink);
+    color:var(--ink);background:none;transition:all .3s;display:inline-flex;gap:9px;align-items:center;
+  }
+  .btn .arr{transition:transform .3s}
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn.solid{background:var(--ink);color:var(--paper)}
+  .btn.solid:hover{background:transparent;color:var(--ink)}
+  .hero-img{position:relative;overflow:hidden;background:#ddd}
+  .hero-img img{animation:breathe 22s ease-in-out infinite alternate}
+  @keyframes breathe{from{transform:scale(1)}to{transform:scale(1.05)}}
+  .ph-tag{position:absolute;bottom:14px;right:14px;background:rgba(27,42,63,.7);color:#fff;font-size:10px;letter-spacing:.06em;padding:4px 9px;border-radius:2px}
+
+  /* ---------- SÉRIES ---------- */
+  section.series{padding:clamp(70px,9vw,130px) clamp(20px,4vw,56px);max-width:var(--maxw);margin:0 auto}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:46px}
+  .sec-head h2{font-family:var(--display);font-weight:300;font-size:clamp(28px,3vw,42px)}
+  .sec-head a{font-size:13px;letter-spacing:.04em;color:var(--ink);text-decoration:none;opacity:.7}
+  .sec-head a:hover{opacity:1;color:var(--gold)}
+  .series-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.2vw,30px)}
+  .series-card{position:relative;overflow:hidden;aspect-ratio:4/5;cursor:pointer;background:#ddd}
+  .series-card:nth-child(odd){margin-top:0}
+  .series-card:nth-child(even){margin-top:clamp(30px,5vw,70px)}
+  .series-card img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+  .series-card:hover img{transform:scale(1.04)}
+  .series-card .label{
+    position:absolute;left:0;bottom:0;padding:24px 26px;color:#fff;width:100%;
+    background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0));
+  }
+  .series-card .label .yr{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  .series-card .label .nm{font-family:var(--display);font-size:clamp(22px,2.4vw,34px);font-weight:400;line-height:1.05;margin-top:4px}
+
+  /* ---------- PRINTS RAIL ---------- */
+  section.prints{padding:0 clamp(20px,4vw,56px) clamp(80px,10vw,140px);max-width:var(--maxw);margin:0 auto}
+  .prints-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,22px)}
+  .print{cursor:pointer}
+  .print .imgwrap{position:relative;overflow:hidden;aspect-ratio:1/1;background:#ddd}
+  .print img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .print:hover img{transform:scale(1.05)}
+  .print .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:11px;font-size:12px;letter-spacing:.02em}
+  .print .meta .t{opacity:.8}
+  .print .meta .p{opacity:0;transition:opacity .3s;color:var(--gold)}
+  .print:hover .meta .p{opacity:1}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink);color:var(--paper);padding:clamp(60px,8vw,100px) clamp(20px,4vw,56px) 40px}
+  .foot-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+  footer h3{font-family:var(--display);font-weight:300;font-size:clamp(28px,3.4vw,48px);line-height:1;max-width:14ch}
+  footer .col h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:16px}
+  footer .col a{display:block;color:var(--paper);text-decoration:none;font-size:14px;opacity:.85;margin-bottom:9px}
+  footer .col a:hover{opacity:1;color:var(--gold)}
+  .foot-bottom{max-width:var(--maxw);margin:60px auto 0;padding-top:24px;border-top:1px solid rgba(244,241,235,.16);display:flex;justify-content:space-between;font-size:11px;letter-spacing:.04em;opacity:.6;flex-wrap:wrap;gap:10px}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(38px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- PROTOTYPE BANNER ---------- */
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--gold);color:#fff;font-size:11px;letter-spacing:.04em;text-align:center;padding:7px;font-family:var(--body)}
+  .proto b{font-weight:500}
+
+  /* ---------- MOBILE ---------- */
+  @media(max-width:860px){
+    nav.links{display:none}
+    .burger{display:block}
+    .lang{position:absolute;right:58px;top:24px}
+    .hero{grid-template-columns:1fr}
+    .hero-text{order:2;padding:50px 28px 70px;min-height:auto}
+    .hero-img{order:1;height:62vh}
+    .hero-img img{animation:none}
+    .series-grid{grid-template-columns:1fr;gap:20px}
+    .series-card:nth-child(even){margin-top:0}
+    .prints-grid{grid-template-columns:1fr 1fr;gap:14px}
+    .print .meta .p{opacity:1}
+    .foot-grid{grid-template-columns:1fr;gap:30px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wordmark">AUDREY KNAFO</div>
+  <nav class="links">
+    <a href="#series" data-fr="séries" data-en="series">séries</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="#" data-fr="journal" data-en="journal">journal</a>
+    <a href="#prints" data-fr="prints" data-en="prints">prints</a>
+    <a href="#" data-fr="contact" data-en="contact">contact</a>
+    <span class="lang">
+      <button class="active" data-lang="fr">FR</button>
+      <span style="opacity:.3">|</span>
+      <button data-lang="en">EN</button>
+    </span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+
+<!-- HERO SPLIT -->
+<section class="hero">
+  <div class="hero-text">
+    <h1 data-fr="Audrey<br>Knafo" data-en="Audrey<br>Knafo">Audrey<br>Knafo</h1>
+    <div class="rule"></div>
+    <p class="statement">
+      <span data-fr="Capteuse d'âmes, je capture l'essence des regards et l'intensité des émotions."
+            data-en="Catcher of souls — I capture the essence of gazes and the intensity of emotions.">Capteuse d'âmes, je capture l'essence des regards et l'intensité des émotions.</span>
+      <small data-fr="" data-en="« Capteuse d'âmes » — French original"></small>
+    </p>
+    <div class="cta-row">
+      <a class="btn solid" href="#series"><span data-fr="Explorer mon univers" data-en="Explore my universe">Explorer mon univers</span> <span class="arr">→</span></a>
+      <a class="btn" href="#prints"><span data-fr="Acheter une œuvre" data-en="Buy a print">Acheter une œuvre</span> <span class="arr">→</span></a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="../assets/portrait-04.jpg" alt="Portrait — Audrey Knafo, série Portrait 2025">
+  </div>
+</section>
+
+<!-- SÉRIES -->
+<section class="series" id="series">
+  <div class="sec-head reveal">
+    <h2 data-fr="Séries" data-en="Series">Séries</h2>
+    <a href="#" data-fr="voir toutes les séries →" data-en="view all series →">voir toutes les séries →</a>
+  </div>
+  <div class="series-grid">
+    <div class="series-card reveal">
+      <img src="../assets/portrait-03.jpg" alt="Série Portrait">
+      <div class="label"><div class="yr">2025</div><div class="nm">Portrait</div></div>
+    </div>
+    <div class="series-card reveal">
+      <img src="../assets/standup-05.jpg" alt="Série Stand Up / One Man Show">
+      <div class="label"><div class="yr">2023</div><div class="nm">Stand Up</div></div>
+    </div>
+    <div class="series-card reveal">
+      <img src="../assets/fashion-04.jpg" alt="Série Fashion">
+      <div class="label"><div class="yr">2023</div><div class="nm">Fashion</div></div>
+    </div>
+    <div class="series-card reveal">
+      <img src="../assets/liveshow-02.jpg" alt="Série Live Show">
+      <div class="label"><div class="yr">2023</div><div class="nm">Live Show</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINTS RAIL -->
+<section class="prints" id="prints">
+  <div class="sec-head reveal">
+    <h2 data-fr="Prints récents" data-en="Recent prints">Prints récents</h2>
+    <a href="#" data-fr="voir le shop →" data-en="view the shop →">voir le shop →</a>
+  </div>
+  <div class="prints-grid">
+    <div class="print reveal">
+      <div class="imgwrap"><img src="../assets/portrait-02.jpg" alt="Tirage Portrait"></div>
+      <div class="meta"><span class="t">Untitled No. 1 · Portrait</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div>
+    </div>
+    <div class="print reveal">
+      <div class="imgwrap"><img src="../assets/standup-04.jpg" alt="Tirage Stand Up"></div>
+      <div class="meta"><span class="t">Untitled No. 2 · Stand Up</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div>
+    </div>
+    <div class="print reveal">
+      <div class="imgwrap"><img src="../assets/fashion-03.jpg" alt="Tirage Fashion"></div>
+      <div class="meta"><span class="t">Untitled No. 3 · Fashion</span><span class="p" data-fr="dès 90€" data-en="from 90€">dès 90€</span></div>
+    </div>
+    <div class="print reveal">
+      <div class="imgwrap"><img src="../assets/backstage-04.jpg" alt="Tirage Backstage"></div>
+      <div class="meta"><span class="t">Untitled No. 4 · Backstage</span><span class="p" data-fr="dès 60€" data-en="from 60€">dès 60€</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3 data-fr="Travaillons ensemble." data-en="Let's work together.">Travaillons ensemble.</h3>
+      <a class="btn" style="border-color:var(--paper);color:var(--paper);margin-top:28px" href="#"><span data-fr="Demander un devis" data-en="Request a quote">Demander un devis</span> <span class="arr">→</span></a>
+    </div>
+    <div class="col">
+      <h4 data-fr="Explorer" data-en="Explore">Explorer</h4>
+      <a href="#" data-fr="Séries" data-en="Series">Séries</a>
+      <a href="#" data-fr="Prints" data-en="Prints">Prints</a>
+      <a href="#" data-fr="À propos" data-en="About">À propos</a>
+      <a href="#" data-fr="Journal" data-en="Journal">Journal</a>
+    </div>
+    <div class="col">
+      <h4 data-fr="Suivre" data-en="Follow">Suivre</h4>
+      <a href="https://instagram.com/ako_audrey">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="mailto:contact@audreyknafo.com">contact@audreyknafo.com</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Audrey Knafo · Capteuse d'âmes</span>
+    <span data-fr="Mentions légales · Confidentialité · Livraison" data-en="Legal · Privacy · Shipping">Mentions légales · Confidentialité · Livraison</span>
+  </div>
+</footer>
+
+<div class="proto"><b>PROTOTYPE</b> — Home Direction B (Editorial Split) · real imagery from audreyknafo.com · free font stand-ins · not production</div>
+
+<script>
+  // nav opacity on scroll
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40)});
+
+  // FR/EN toggle
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){
+    document.documentElement.lang=l;
+    document.querySelectorAll('[data-'+l+']').forEach(el=>{
+      const v=el.getAttribute('data-'+l);
+      if(el.tagName==='H1'||v.includes('<br>')||v.includes('<')) el.innerHTML=v; else el.textContent=v;
+    });
+    langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+  }
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

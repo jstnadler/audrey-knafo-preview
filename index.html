@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audrey Knafo — Home Page Directions</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F1EB;--ink:#1B2A3F;--gold:#B8975A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:"Inter",sans-serif;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:clamp(40px,7vw,90px) 24px}
+  h1{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(36px,5vw,64px);line-height:1}
+  .sub{font-style:italic;font-family:"Fraunces",serif;color:#6b6256;margin-top:14px;font-size:20px}
+  .lede{max-width:62ch;margin-top:24px;color:#4a443c;font-size:15px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  @media(max-width:780px){.cards{grid-template-columns:1fr}}
+  .card{display:block;text-decoration:none;color:var(--ink);border:1px solid rgba(27,42,63,.16);transition:transform .3s,box-shadow .3s;background:#fff}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(27,42,63,.12)}
+  .card .thumb{aspect-ratio:16/10;overflow:hidden;background:#ddd}
+  .card .thumb img{width:100%;height:100%;object-fit:cover}
+  .card .body{padding:20px 22px 24px}
+  .card .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .card h2{font-family:"Fraunces",serif;font-weight:400;font-size:24px;margin-top:6px}
+  .card p{font-size:13px;color:#6b6256;margin-top:8px}
+  .note{margin-top:54px;padding:22px 24px;background:#fff;border-left:3px solid var(--gold);font-size:13.5px;color:#4a443c}
+  .note b{color:var(--ink)}
+  .note ul{margin:10px 0 0 18px}
+  .note li{margin:4px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Audrey Knafo</h1>
+  <div class="sub">Home page — three directions</div>
+  <p class="lede">Three distinct treatments of the home page, all built with Audrey's own photographs and a working FR/EN toggle. Click any to open the full prototype. She picks one (or a hybrid) — then we build it as a real Shopify theme.</p>
+
+  <div class="cards">
+    <a class="card" href="home-a-cinematic/index.html">
+      <div class="thumb"><img src="assets/portrait-04.jpg" alt=""></div>
+      <div class="body"><div class="k">Direction A</div><h2>Cinematic Hero</h2><p>Full-bleed cross-fading hero on a dark, moody palette built around her dramatic B&amp;W work. Most artistic; print store sits below the fold.</p></div>
+    </a>
+    <a class="card" href="home-b-editorial-split/index.html">
+      <div class="thumb"><img src="assets/standup-05.jpg" alt=""></div>
+      <div class="body"><div class="k">Direction B · recommended</div><h2>Editorial Split</h2><p>50/50 name + statement vs. featured portrait on warm paper. Treats portfolio and print store as equals above the fold.</p></div>
+    </a>
+    <a class="card" href="home-c-series-grid/index.html">
+      <div class="thumb"><img src="assets/fashion-04.jpg" alt=""></div>
+      <div class="body"><div class="k">Direction C</div><h2>Series-First Grid</h2><p>Lands directly on all six series in a gallery grid. Most navigable; quickest path into the work.</p></div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>Two findings worth Audrey's input (from pulling her live site):</b>
+    <ul>
+      <li><b>Her work is mostly dramatic black-and-white</b> (Portrait, Stand Up, Backstage, Live Show), with color concentrated in Fashion (glamour) and Awards. The three palettes here are tuned for that — but it's a real correction to our earlier "color photography" note.</li>
+      <li><b>"Awards" is actually award-winning travel / landscape work</b> (horses on a beach, boats, cityscapes) — a different genre from the rest. Worth deciding whether it belongs on the home grid or gets its own home.</li>
+      <li>Imagery and fonts are stand-ins: photos are low-res web copies from audreyknafo.com (production needs her masters); display font is Fraunces standing in for the production GT Sectra.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
