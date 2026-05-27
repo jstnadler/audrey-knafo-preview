@@ -154,8 +154,8 @@
   const langBtns=document.querySelectorAll('.lang button');
   function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
   langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-  document.querySelectorAll('.grid .tile').forEach(t=>{t.style.cursor='pointer';t.addEventListener('click',()=>location.href='../series-portrait/index.html')});
-  document.querySelectorAll('.prints .print').forEach(c=>{c.style.cursor='pointer';c.addEventListener('click',()=>location.href='../artwork/index.html')});
+  document.querySelectorAll('.grid .tile').forEach(t=>{t.style.cursor='pointer';t.addEventListener('click',()=>location.href='../artwork-grey/index.html')});
+  document.querySelectorAll('.prints .print').forEach(c=>{c.style.cursor='pointer';c.addEventListener('click',()=>location.href='../artwork-grey/index.html')});
 </script>
 </body>
 </html>
