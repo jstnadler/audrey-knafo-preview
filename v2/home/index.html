@@ -16,13 +16,17 @@
   img{display:block;width:100%;height:100%;object-fit:cover}
   a{color:inherit;text-decoration:none}
 
+  /* Scrim — guarantees nav contrast over any hero (esp. B&W mid-tones) */
+  .scrim{position:fixed;top:0;left:0;right:0;height:170px;background:linear-gradient(to bottom,rgba(0,0,0,.45),rgba(0,0,0,0));z-index:49;pointer-events:none;transition:opacity .35s}
+  .scrim.hide{opacity:0}
+
   /* NAV */
-  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:24px clamp(20px,3vw,40px);transition:background .3s,color .3s;color:#fff;mix-blend-mode:difference}
-  header.solid{mix-blend-mode:normal;color:var(--ink);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:24px clamp(20px,3vw,40px);transition:background .3s,color .3s,box-shadow .3s;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+  header.solid{color:var(--ink);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);text-shadow:none}
   .wm{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
   nav.links{display:flex;gap:34px;align-items:center}
-  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.9;transition:opacity .2s}
-  nav.links a:hover{opacity:.6}
+  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.95;transition:opacity .2s}
+  nav.links a:hover{opacity:.7}
   .lang{display:flex;gap:8px;font-size:11px;letter-spacing:.12em;margin-left:6px}
   .lang button{background:none;border:none;color:inherit;font-family:var(--body);font-size:11px;letter-spacing:.12em;cursor:pointer;padding:2px;opacity:.55;text-transform:uppercase}
   .lang button.active{opacity:1;border-bottom:1px solid currentColor}
@@ -62,6 +66,7 @@
 </head>
 <body>
 
+<div class="scrim" id="scrim"></div>
 <header id="nav">
   <a class="wm" href="index.html">Audrey Knafo</a>
   <nav class="links">
@@ -120,8 +125,8 @@
 <div class="proto">Prototype · v2 · Forget-inspired · final palette TBD with client</div>
 
 <script>
-  const nav=document.getElementById('nav');
-  addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>window.innerHeight*0.7)});
+  const nav=document.getElementById('nav'),scrim=document.getElementById('scrim');
+  addEventListener('scroll',()=>{const past=scrollY>window.innerHeight*0.7;nav.classList.toggle('solid',past);scrim.classList.toggle('hide',past)});
   const langBtns=document.querySelectorAll('.lang button');
   function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
   langBtns.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();setLang(b.dataset.lang)}));
