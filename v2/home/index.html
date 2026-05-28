@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audrey Knafo</title>
+<!-- v2 home — Forget-inspired scrolling project sections, one combined site. Final palette TBD with client. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FFFFFF;--ink:#111111;--muted:rgba(17,17,17,.55);--hair:rgba(17,17,17,.1);--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+
+  /* NAV */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:24px clamp(20px,3vw,40px);transition:background .3s,color .3s;color:#fff;mix-blend-mode:difference}
+  header.solid{mix-blend-mode:normal;color:var(--ink);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+  .wm{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+  nav.links{display:flex;gap:34px;align-items:center}
+  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.9;transition:opacity .2s}
+  nav.links a:hover{opacity:.6}
+  .lang{display:flex;gap:8px;font-size:11px;letter-spacing:.12em;margin-left:6px}
+  .lang button{background:none;border:none;color:inherit;font-family:var(--body);font-size:11px;letter-spacing:.12em;cursor:pointer;padding:2px;opacity:.55;text-transform:uppercase}
+  .lang button.active{opacity:1;border-bottom:1px solid currentColor}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:inherit}
+
+  /* PROJECT SECTION */
+  .proj{position:relative;height:100vh;min-height:560px;overflow:hidden;cursor:pointer}
+  .proj img{filter:brightness(.96);transition:filter .8s,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .proj:hover img{filter:brightness(.86);transform:scale(1.02)}
+  .proj .label{position:absolute;left:clamp(24px,4vw,56px);bottom:clamp(28px,5vw,60px);color:#fff;letter-spacing:.16em;font-size:13px;text-transform:uppercase}
+  .proj .label .nm{font-size:clamp(28px,3.5vw,46px);font-weight:300;letter-spacing:.04em;display:block;margin-bottom:6px;text-transform:none}
+  .proj .label .yr{opacity:.85;font-size:11px;letter-spacing:.2em}
+
+  /* INTRO STRIP */
+  .intro{padding:clamp(80px,11vw,160px) clamp(24px,5vw,56px);text-align:center;max-width:780px;margin:0 auto}
+  .intro .ttl{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+  .intro p{font-size:clamp(18px,2vw,26px);font-weight:300;line-height:1.4;letter-spacing:.005em}
+  .intro .signature{margin-top:22px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .intro .cta{display:inline-flex;gap:10px;margin-top:42px;border:1px solid var(--ink);padding:14px 28px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:all .25s}
+  .intro .cta:hover{background:var(--ink);color:#fff}
+
+  /* FOOTER */
+  footer{padding:clamp(50px,7vw,80px) clamp(24px,4vw,56px) 36px;border-top:1px solid var(--hair);text-align:center}
+  footer .fwm{font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  footer .links{margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  footer .links a{margin:0 10px}
+  footer .links a:hover{color:var(--ink)}
+  footer .fb{margin-top:24px;font-size:10px;letter-spacing:.12em;color:var(--muted)}
+
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:#111;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:6px;font-weight:500}
+
+  @media(max-width:780px){
+    nav.links{display:none}.burger{display:block}
+    .lang{position:absolute;right:62px;top:24px}
+  }
+</style>
+</head>
+<body>
+
+<header id="nav">
+  <a class="wm" href="index.html">Audrey Knafo</a>
+  <nav class="links">
+    <a href="index.html" data-fr="séries" data-en="series">séries</a>
+    <a href="../shop/index.html" data-fr="éditions" data-en="editions">éditions</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.4">|</span><button data-lang="en">EN</button></span>
+  </nav>
+  <button class="burger">≡</button>
+</header>
+
+<section class="proj" onclick="location.href='#'">
+  <img src="../../assets/portrait-04.jpg" alt="Portrait series, 2025">
+  <div class="label"><span class="nm">Portrait</span><span class="yr">2025</span></div>
+</section>
+
+<section class="proj" onclick="location.href='#'">
+  <img src="../../assets/standup-05.jpg" alt="Stand Up series, 2023">
+  <div class="label"><span class="nm">Stand Up</span><span class="yr">2023</span></div>
+</section>
+
+<section class="proj" onclick="location.href='#'">
+  <img src="../../assets/backstage-04.jpg" alt="Backstage series, 2023">
+  <div class="label"><span class="nm">Backstage</span><span class="yr">2023</span></div>
+</section>
+
+<section class="proj" onclick="location.href='#'">
+  <img src="../../assets/liveshow-03.jpg" alt="Live Show series, 2023">
+  <div class="label"><span class="nm">Live Show</span><span class="yr">2023</span></div>
+</section>
+
+<section class="proj" onclick="location.href='#'">
+  <img src="../../assets/fashion-04.jpg" alt="Fashion series, 2023">
+  <div class="label"><span class="nm">Fashion</span><span class="yr">2023</span></div>
+</section>
+
+<section class="intro">
+  <div class="ttl" data-fr="Statement" data-en="Statement">Statement</div>
+  <p data-fr="Capteuse d'âmes, je capture l'essence des regards et l'intensité des émotions."
+     data-en="Catcher of souls — I capture the essence of gazes and the intensity of emotions.">Capteuse d'âmes, je capture l'essence des regards et l'intensité des émotions.</p>
+  <div class="signature" data-fr="— Audrey Knafo" data-en="— Audrey Knafo">— Audrey Knafo</div>
+  <a class="cta" href="../shop/index.html"><span data-fr="acquérir un tirage" data-en="acquire a print">acquérir un tirage</span> <span>→</span></a>
+</section>
+
+<footer>
+  <div class="fwm">Audrey Knafo</div>
+  <div class="links">
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="../shop/index.html" data-fr="éditions" data-en="editions">éditions</a>
+    <a href="https://instagram.com/ako_audrey">Instagram</a>
+    <a href="mailto:contact@audreyknafo.com">contact</a>
+  </div>
+  <div class="fb">© 2026 · Capteuse d'âmes</div>
+</footer>
+
+<div class="proto">Prototype · v2 · Forget-inspired · final palette TBD with client</div>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>window.innerHeight*0.7)});
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();setLang(b.dataset.lang)}));
+</script>
+</body>
+</html>

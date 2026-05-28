@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled No. 4 — Audrey Knafo</title>
+<!-- v2 PDP — split layout (image stacked left, buy panel right with dropdowns) per Forget reference. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FFFFFF;--ink:#111111;--muted:rgba(17,17,17,.55);--hair:rgba(17,17,17,.12);--soft:#F5F5F3;--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,3vw,40px);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+  .wm{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+  nav.links{display:flex;gap:34px;align-items:center}
+  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+  nav.links a:hover{opacity:.55}
+  .lang{display:flex;gap:8px;font-size:11px;letter-spacing:.12em}
+  .lang button{background:none;border:none;color:inherit;font-family:var(--body);font-size:11px;letter-spacing:.12em;cursor:pointer;padding:2px;opacity:.55;text-transform:uppercase}
+  .lang button.active{opacity:1;border-bottom:1px solid currentColor}
+  .util{display:flex;gap:18px;align-items:center;font-size:11px;letter-spacing:.12em;color:var(--muted)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer}
+
+  .crumb{max-width:1500px;margin:0 auto;padding:24px clamp(20px,3vw,40px) 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .crumb a:hover{color:var(--ink)}
+
+  /* SPLIT */
+  .pdp{max-width:1500px;margin:0 auto;padding:28px clamp(20px,3vw,40px) clamp(70px,8vw,110px);display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(40px,5vw,80px);align-items:start}
+  @media(max-width:920px){.pdp{grid-template-columns:1fr;gap:30px}}
+
+  .gallery{display:flex;flex-direction:column;gap:clamp(14px,1.4vw,22px)}
+  .gallery .frame{background:var(--soft);overflow:hidden}
+  .gallery .frame img{width:100%;height:auto;display:block;object-fit:contain}
+  .gallery .frame.dual{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:clamp(24px,3vw,60px);background:#FAFAF8}
+  .gallery .frame.dual .mat{background:#fff;padding:clamp(16px,2vw,28px);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .gallery .frame.dual .mat img{width:100%;display:block}
+
+  /* BUY PANEL */
+  .panel{position:sticky;top:90px}
+  .panel h1{font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:.04em;text-transform:uppercase;line-height:1.05}
+  .price{margin-top:18px;font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+  .price b{font-weight:500}
+  .tax{font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:6px}
+  .tax a{text-decoration:underline}
+  .rule{height:1px;background:var(--hair);margin:24px 0}
+
+  .field{margin-top:20px}
+  .field label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .field .sel{position:relative}
+  .field select,.field input{width:100%;font-family:var(--body);font-size:14px;color:var(--ink);background:#FAFAF8;border:1px solid var(--hair);padding:13px 38px 13px 16px;appearance:none;-webkit-appearance:none;cursor:pointer;letter-spacing:.02em}
+  .field input{background:#fff;width:80px;cursor:text}
+  .field .sel::after{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--muted);pointer-events:none}
+  .field .qty-row{display:flex;align-items:center;gap:12px}
+  .field .qty-row label{margin:0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .addbtn{width:100%;margin-top:26px;background:var(--ink);color:#fff;border:1px solid var(--ink);font-family:var(--body);font-size:12px;letter-spacing:.24em;text-transform:uppercase;padding:18px;cursor:pointer;transition:all .25s}
+  .addbtn:hover{background:transparent;color:var(--ink)}
+  .cart-link{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .cart-link:hover{color:var(--ink)}
+
+  .sec{margin-top:34px;padding-top:24px;border-top:1px solid var(--hair)}
+  .sec h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;margin-bottom:14px}
+  .sec p{font-size:14px;color:#333;margin-bottom:10px}
+  .sec .em{font-style:italic;color:var(--muted)}
+  .sec ul{list-style:none;padding-left:0}
+  .sec li{font-size:13.5px;margin-bottom:10px;padding-left:0;color:#333;line-height:1.5}
+  .sec li b{font-weight:500}
+  .sec li .so{color:#b54b27;font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:11px;margin-left:6px}
+
+  /* footer */
+  footer{padding:clamp(50px,7vw,80px) clamp(24px,4vw,56px) 36px;border-top:1px solid var(--hair);text-align:center}
+  footer .fwm{font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  footer .links{margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  footer .links a{margin:0 10px}
+  footer .links a:hover{color:var(--ink)}
+  footer .fb{margin-top:24px;font-size:10px;letter-spacing:.12em;color:var(--muted)}
+
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:#111;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:6px;font-weight:500}
+
+  @media(max-width:920px){.panel{position:static}}
+  @media(max-width:780px){nav.links{display:none}.burger{display:block}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="wm" href="../home/index.html">Audrey Knafo</a>
+  <nav class="links">
+    <a href="../home/index.html" data-fr="séries" data-en="series">séries</a>
+    <a href="../shop/index.html" data-fr="éditions" data-en="editions">éditions</a>
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+  </nav>
+  <div class="util">
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.4">|</span><button data-lang="en">EN</button></span>
+    <span>€ EUR</span>
+    <span>◯ 0</span>
+  </div>
+  <button class="burger">≡</button>
+</header>
+
+<div class="crumb">
+  <a href="../home/index.html" data-fr="Accueil" data-en="Home">Accueil</a> ·
+  <a href="../shop/index.html" data-fr="Éditions" data-en="Editions">Éditions</a> ·
+  <a href="../shop/index.html" data-fr="Édition 30" data-en="Edition 30">Édition 30</a> ·
+  Untitled No. 4
+</div>
+
+<section class="pdp">
+  <div class="gallery">
+    <div class="frame"><img src="../../assets/portrait-04.jpg" alt="Untitled No. 4"></div>
+    <div class="frame dual">
+      <div class="mat"><img src="../../assets/portrait-04.jpg" alt="Framed preview, no frame"></div>
+      <div class="mat" style="background:#171614"><img src="../../assets/portrait-04.jpg" alt="Framed preview, black frame"></div>
+    </div>
+    <div class="frame"><img src="../../assets/portrait-03.jpg" alt="Detail"></div>
+  </div>
+
+  <aside class="panel">
+    <h1>Untitled No. 4</h1>
+    <div class="price"><span data-fr="PRIX TTC" data-en="Price incl. tax">PRIX TTC</span> : <b id="price">€450</b></div>
+    <div class="tax" data-fr="Taxes incluses. Frais d'expédition calculés à la commande." data-en="Tax included. Shipping calculated at checkout.">Taxes incluses. Frais d'expédition calculés à la commande.</div>
+
+    <div class="rule"></div>
+
+    <div class="field">
+      <label data-fr="Taille" data-en="Size">Taille</label>
+      <div class="sel">
+        <select id="size">
+          <option data-p="180" value="40x50">40×50 cm / 16″×20″ — €180</option>
+          <option data-p="450" value="60x80" selected>60×80 cm / 24″×30″ — €450</option>
+          <option data-p="780" value="80x120">80×120 cm / 32″×48″ — €780</option>
+          <option data-p="60" value="20x25">20×25 cm / 8″×10″ — €60</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label data-fr="Papier" data-en="Material">Papier</label>
+      <div class="sel">
+        <select>
+          <option>Hahnemühle Photo Rag® 308 g</option>
+          <option data-fr="Argentique baryté" data-en="Silver gelatin baryta">Argentique baryté</option>
+          <option disabled data-fr="Platine (sur demande)" data-en="Platinum (on request)">Platine (sur demande)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label data-fr="Encadrement" data-en="Frame">Encadrement</label>
+      <div class="sel">
+        <select>
+          <option data-fr="Sans cadre" data-en="No frame">Sans cadre</option>
+          <option data-fr="Cadre noir, chêne massif" data-en="Black frame, solid oak">Cadre noir, chêne massif</option>
+          <option data-fr="Cadre blanc, chêne massif" data-en="White frame, solid oak">Cadre blanc, chêne massif</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="qty-row">
+        <label data-fr="Quantité" data-en="Quantity">Quantité</label>
+        <input type="number" value="1" min="1">
+      </div>
+    </div>
+
+    <button class="addbtn" data-fr="Ajouter au panier" data-en="Add to cart">Ajouter au panier</button>
+    <a class="cart-link" href="#" data-fr="Voir le panier" data-en="View cart">Voir le panier</a>
+
+    <div class="sec">
+      <h2 data-fr="À propos de l'œuvre" data-en="About the piece">À propos de l'œuvre</h2>
+      <p data-fr="Œuvre limitée — édition de 30 exemplaires dans le monde."
+         data-en="Limited artwork — edition of 30 worldwide.">Œuvre limitée — édition de 30 exemplaires dans le monde.</p>
+      <p class="em" data-fr="Un instant suspendu — le regard qui se détourne, la lumière qui effleure."
+         data-en="A suspended moment — the gaze turning away, the light grazing the skin.">Un instant suspendu — le regard qui se détourne, la lumière qui effleure.</p>
+      <p data-fr="Tirage pigmentaire sur papier Hahnemühle Photo Rag® Bright White 308 g. Numéroté et signé à la main. Certificat d'authenticité inclus."
+         data-en="Archival pigment print on Hahnemühle Photo Rag® Bright White 308 gsm. Hand-numbered and signed. Certificate of authenticity included.">Tirage pigmentaire sur papier Hahnemühle Photo Rag® Bright White 308 g. Numéroté et signé à la main. Certificat d'authenticité inclus.</p>
+    </div>
+
+    <div class="sec">
+      <h2 data-fr="Lieu" data-en="Location">Lieu</h2>
+      <p>Paris, 2025</p>
+    </div>
+
+    <div class="sec">
+      <h2 data-fr="Tailles &amp; éditions" data-en="Size guide &amp; editions">Tailles &amp; éditions</h2>
+      <ul>
+        <li><b>20×25 cm</b> · 8″×10″ — <span data-fr="Édition de 15" data-en="Edition of 15">Édition de 15</span> <span class="so" data-fr="épuisée" data-en="sold out">épuisée</span></li>
+        <li><b>40×50 cm</b> · 16″×20″ — <span data-fr="Édition de 30" data-en="Edition of 30">Édition de 30</span> · <span data-fr="reste 12 / 30" data-en="12 / 30 left">reste 12 / 30</span></li>
+        <li><b>60×80 cm</b> · 24″×30″ — <span data-fr="Édition de 10" data-en="Edition of 10">Édition de 10</span> · <span data-fr="reste 3 / 10" data-en="3 / 10 left">reste 3 / 10</span></li>
+        <li><b>80×120 cm</b> · 32″×48″ — <span data-fr="Édition de 5" data-en="Edition of 5">Édition de 5</span> · <span data-fr="reste 2 / 5" data-en="2 / 5 left">reste 2 / 5</span></li>
+      </ul>
+    </div>
+
+    <div class="sec">
+      <h2 data-fr="Expédition" data-en="Shipping">Expédition</h2>
+      <p data-fr="Frais d'expédition calculés à la commande." data-en="Shipping is calculated at checkout.">Frais d'expédition calculés à la commande.</p>
+      <p data-fr="France et Europe : 1 à 2 semaines." data-en="France and Europe: 1 to 2 weeks.">France et Europe : 1 à 2 semaines.</p>
+      <p data-fr="États-Unis et reste du monde : 2 à 3 semaines." data-en="USA and the rest of the world: 2 to 3 weeks.">États-Unis et reste du monde : 2 à 3 semaines.</p>
+    </div>
+
+    <div class="sec">
+      <h2 data-fr="L'artiste" data-en="About the artist">L'artiste</h2>
+      <p data-fr="Audrey Knafo est une photographe française basée à Paris. Son travail explore l'intimité des regards et l'intensité des émotions à travers le portrait, la scène et la mode."
+         data-en="Audrey Knafo is a French photographer based in Paris. Her work explores the intimacy of gazes and the intensity of emotion through portrait, performance and fashion.">Audrey Knafo est une photographe française basée à Paris. Son travail explore l'intimité des regards et l'intensité des émotions à travers le portrait, la scène et la mode.</p>
+    </div>
+  </aside>
+</section>
+
+<footer>
+  <div class="fwm">Audrey Knafo</div>
+  <div class="links">
+    <a href="#" data-fr="à propos" data-en="about">à propos</a>
+    <a href="../shop/index.html" data-fr="éditions" data-en="editions">éditions</a>
+    <a href="https://instagram.com/ako_audrey">Instagram</a>
+    <a href="mailto:contact@audreyknafo.com">contact</a>
+  </div>
+  <div class="fb">© 2026 · Capteuse d'âmes</div>
+</footer>
+
+<div class="proto">Prototype · v2 PDP · split layout (Forget-style) · dropdowns + per-size editions · final palette TBD</div>
+
+<script>
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{const v=el.getAttribute('data-'+l);el.textContent=v});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+    // also swap option text via data-fr/en if present
+    document.querySelectorAll('option[data-'+l+']').forEach(o=>{o.textContent=o.getAttribute('data-'+l)});
+  }
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  document.getElementById('size').addEventListener('change',e=>{
+    const p=e.target.options[e.target.selectedIndex].dataset.p;
+    if(p)document.getElementById('price').textContent='€'+p;
+  });
+</script>
+</body>
+</html>

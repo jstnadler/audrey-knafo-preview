@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audrey Knafo — v2 (Forget reference)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FFFFFF;--ink:#111111;--muted:rgba(17,17,17,.55);--hair:rgba(17,17,17,.12);--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:clamp(50px,8vw,100px) 28px}
+  h1{font-weight:300;font-size:clamp(36px,5vw,64px);line-height:1.04;letter-spacing:-.01em}
+  .sub{letter-spacing:.16em;text-transform:uppercase;font-size:12px;color:var(--muted);margin-top:18px}
+  .lede{max-width:64ch;margin-top:30px;color:#333;font-size:15.5px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+  @media(max-width:820px){.cards{grid-template-columns:1fr}}
+  .card{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--hair);transition:transform .3s,box-shadow .3s;background:#fff}
+  .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,0,0,.06)}
+  .thumb{aspect-ratio:4/3;overflow:hidden;background:#eee}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.05)}
+  .body{padding:18px 22px 22px}
+  .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .body h2{font-weight:400;font-size:17px;margin-top:5px;letter-spacing:.04em;text-transform:uppercase}
+  .body p{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.55}
+  .note{margin-top:50px;padding:24px 26px;background:#FAFAFA;border-left:2px solid var(--ink);font-size:14px;color:#333}
+  .note b{color:var(--ink)}
+  .note ul{margin:10px 0 0 20px}
+  .note li{margin:5px 0}
+  .vs{margin-top:32px;font-size:13px;color:var(--muted)}
+  .vs a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+  .vs a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Audrey Knafo</h1>
+  <div class="sub">Version 2 — based on the Mathieu Forget reference</div>
+  <p class="lede">A rebuild based on the Forget site Audrey sent over. One site (not two), Forget's split product-page layout, edition-tier organization for the shop, white minimalist aesthetic. The final color palette is still open with the client.</p>
+
+  <div class="cards">
+    <a class="card" href="home/index.html">
+      <div class="thumb"><img src="../assets/portrait-04.jpg" alt=""></div>
+      <div class="body"><div class="k">Pages · 01</div><h2>Home</h2><p>Scrolling project sections — one full-bleed image per series, restrained type, minimal chrome.</p></div>
+    </a>
+    <a class="card" href="shop/index.html">
+      <div class="thumb"><img src="../assets/standup-05.jpg" alt=""></div>
+      <div class="body"><div class="k">Pages · 02</div><h2>Editions</h2><p>The shop landing. Catalog organized by edition tier — Open / Limited 30 / Limited 10 — rather than by series.</p></div>
+    </a>
+    <a class="card" href="artwork/index.html">
+      <div class="thumb"><img src="../assets/fashion-04.jpg" alt=""></div>
+      <div class="body"><div class="k">Pages · 03</div><h2>Product (split)</h2><p>Image stacked left with framed previews; buy panel fixed right with dropdowns. Sections below: About / Location / Size guide / Shipping / Artist.</p></div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>What's different from v1</b>
+    <ul>
+      <li><b>One site, not two.</b> Forget runs portfolio + shop on two domains; we're combining them on one Shopify site.</li>
+      <li><b>Shop IA by edition tier</b> instead of by series. Three collections: Open Edition / Edition 30 / Edition 10. (Per-edition caps still TBD with Audrey.)</li>
+      <li><b>Product page = split layout</b> (image left, buy right with dropdowns), matching Forget. Sections below: About the piece / Location / Size guide &amp; editions / Shipping / About the artist.</li>
+      <li><b>Aesthetic shift</b> — white background, uppercase thin sans, no warm-paper or gold accent. Closer to Forget's neutral gallery feel. Final palette decision still open with client.</li>
+      <li><b>Series pages still exist</b> as portfolio surfaces (her work — Portrait, Stand Up, etc.) but they're separate from the Editions shop.</li>
+    </ul>
+  </div>
+
+  <div class="vs">
+    Compare with the earlier prototypes: <a href="../index.html">v1 (3 home directions + 3 PDP layouts)</a>
+  </div>
+</div>
+</body>
+</html>
