@@ -27,7 +27,12 @@
   .util{display:flex;gap:18px;align-items:center;font-size:11px;letter-spacing:.12em;color:var(--muted)}
   .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer}
 
-  .head{max-width:1200px;margin:0 auto;padding:clamp(70px,9vw,130px) 28px clamp(40px,5vw,70px);text-align:center}
+  .picker{position:sticky;top:64px;z-index:49;background:#fafafa;border-bottom:1px solid var(--hair);padding:9px clamp(20px,3vw,40px);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;gap:18px;align-items:center}
+  .picker b{color:var(--ink);font-weight:500;letter-spacing:.2em}
+  .picker a{opacity:.65}.picker a:hover{opacity:1;color:var(--ink)}
+  .picker a.cur{opacity:1;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:1px}
+
+  .head{max-width:1200px;margin:0 auto;padding:clamp(50px,7vw,100px) 28px clamp(40px,5vw,70px);text-align:center}
   .head .crumb{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
   .head h1{font-weight:300;font-size:clamp(32px,4.4vw,56px);letter-spacing:-.005em}
   .head .rule{width:40px;height:1px;background:var(--ink);margin:24px auto 30px;opacity:.6}
@@ -73,6 +78,14 @@
   </div>
   <button class="burger">≡</button>
 </header>
+
+<div class="picker">
+  <b>Layout exploration</b>
+  <a href="index.html" class="cur">current</a>
+  <a href="../shop-alt-a/index.html">A — Editorial Strips</a>
+  <a href="../shop-alt-b/index.html">B — Asymmetric Grid</a>
+  <a href="../shop-alt-c/index.html">C — Typography Index</a>
+</div>
 
 <section class="head">
   <div class="crumb" data-fr="Catalogue" data-en="Catalog">Catalogue</div>
