@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presse — Audrey Knafo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FFFFFF;--ink:#111111;--muted:rgba(17,17,17,.55);--hair:rgba(17,17,17,.1);--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+
+  header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,3vw,40px);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+  .wm{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+  nav.links{display:flex;gap:34px;align-items:center}
+  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+  nav.links a:hover{opacity:.55}
+  nav.links a.cur{opacity:1;border-bottom:1px solid currentColor;padding-bottom:2px}
+  .lang{display:flex;gap:8px;font-size:11px}
+  .lang button{background:none;border:none;color:inherit;font-family:var(--body);font-size:11px;letter-spacing:.12em;cursor:pointer;padding:2px;opacity:.55;text-transform:uppercase}
+  .lang button.active{opacity:1;border-bottom:1px solid currentColor}
+  .util{display:flex;gap:18px;align-items:center;font-size:11px;letter-spacing:.12em;color:var(--muted)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer}
+
+  .titleband{padding:clamp(70px,9vw,130px) clamp(20px,4vw,56px) clamp(40px,5vw,70px);max-width:1300px;margin:0 auto}
+  .titleband h1{font-weight:200;font-size:clamp(48px,7vw,110px);letter-spacing:-.015em;line-height:.95}
+  .titleband .sub{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--ink);padding-bottom:20px;margin-top:24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+  .grid{max-width:1300px;margin:0 auto;padding:0 clamp(20px,4vw,56px) clamp(70px,9vw,130px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,38px)}
+  @media(max-width:920px){.grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .card{display:block;text-decoration:none;color:inherit;transition:transform .35s}
+  .card:hover{transform:translateY(-3px)}
+  .card .thumb{aspect-ratio:4/3;overflow:hidden;background:#eee;margin-bottom:18px}
+  .card .thumb img{filter:brightness(.94);transition:transform 1s cubic-bezier(.2,.7,.2,1),filter .5s}
+  .card:hover .thumb img{transform:scale(1.04);filter:brightness(1)}
+  .card .pub{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .card .t{font-weight:300;font-size:clamp(20px,1.7vw,24px);line-height:1.25;margin-top:8px;letter-spacing:.005em}
+  .card .meta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:14px;display:flex;gap:14px;align-items:center}
+  .card .meta .arr{margin-left:auto;transition:transform .3s}
+  .card:hover .meta .arr{transform:translateX(4px)}
+
+  footer{padding:clamp(50px,7vw,80px) clamp(24px,4vw,56px) 36px;border-top:1px solid var(--hair);text-align:center}
+  footer .fwm{font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  footer .links{margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  footer .links a{margin:0 10px}
+  footer .links a:hover{color:var(--ink)}
+  footer .fb{margin-top:24px;font-size:10px;letter-spacing:.12em;color:var(--muted)}
+
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:#111;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:6px;font-weight:500}
+
+  @media(max-width:780px){nav.links{display:none}.burger{display:block}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="wm" href="../home/index.html">Audrey Knafo</a>
+  <nav class="links">
+    <a href="../shop/index.html" data-fr="art" data-en="art">art</a>
+    <a href="../exhibitions/index.html" data-fr="expositions" data-en="exhibitions">expositions</a>
+    <a href="../artist/index.html" data-fr="artiste" data-en="artist">artiste</a>
+  </nav>
+  <div class="util">
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.4">|</span><button data-lang="en">EN</button></span>
+    <span>€ EUR</span>
+    <span>◯ 0</span>
+  </div>
+  <button class="burger">≡</button>
+</header>
+
+<section class="titleband">
+  <h1 data-fr="Presse" data-en="Press">Presse</h1>
+  <div class="sub">
+    <span data-fr="Articles, entretiens, publications" data-en="Articles, interviews, publications">Articles, entretiens, publications</span>
+    <span data-fr="06 articles" data-en="06 articles">06 articles</span>
+  </div>
+</section>
+
+<section class="grid">
+  <a class="card" href="#">
+    <div class="thumb"><img src="../../assets/portrait-04.jpg" alt=""></div>
+    <div class="pub">Publication Placeholder</div>
+    <div class="t" data-fr="Titre de l'article — entretien avec Audrey Knafo"
+         data-en="Article title — interview with Audrey Knafo">Titre de l'article — entretien avec Audrey Knafo</div>
+    <div class="meta"><span>2025</span><span class="arr">→</span></div>
+  </a>
+  <a class="card" href="#">
+    <div class="thumb"><img src="../../assets/standup-05.jpg" alt=""></div>
+    <div class="pub">Publication Placeholder</div>
+    <div class="t" data-fr="Coulisses du stand-up — un regard intime"
+         data-en="Backstage of stand-up — an intimate look">Coulisses du stand-up — un regard intime</div>
+    <div class="meta"><span>2024</span><span class="arr">→</span></div>
+  </a>
+  <a class="card" href="#">
+    <div class="thumb"><img src="../../assets/fashion-04.jpg" alt=""></div>
+    <div class="pub">Publication Placeholder</div>
+    <div class="t" data-fr="Portrait d'une photographe"
+         data-en="Portrait of a photographer">Portrait d'une photographe</div>
+    <div class="meta"><span>2024</span><span class="arr">→</span></div>
+  </a>
+  <a class="card" href="#">
+    <div class="thumb"><img src="../../assets/backstage-04.jpg" alt=""></div>
+    <div class="pub">Publication Placeholder</div>
+    <div class="t" data-fr="Capteuse d'âmes — sur la scène française"
+         data-en="Catcher of souls — on the French stage">Capteuse d'âmes — sur la scène française</div>
+    <div class="meta"><span>2023</span><span class="arr">→</span></div>
+  </a>
+  <a class="card" href="#">
+    <div class="thumb"><img src="../../assets/liveshow-03.jpg" alt=""></div>
+    <div class="pub">Publication Placeholder</div>
+    <div class="t" data-fr="Photographier le live — entretien"
+         data-en="Photographing the live — interview">Photographier le live — entretien</div>
+    <div class="meta"><span>2023</span><span class="arr">→</span></div>
+  </a>
+  <a class="card" href="#">
+    <div class="thumb"><img src="../../assets/awards-02.jpg" alt=""></div>
+    <div class="pub">Publication Placeholder</div>
+    <div class="t" data-fr="iPhone Photography Awards — distinction 2023"
+         data-en="iPhone Photography Awards — 2023 honor">iPhone Photography Awards — distinction 2023</div>
+    <div class="meta"><span>2023</span><span class="arr">→</span></div>
+  </a>
+</section>
+
+<footer>
+  <div class="fwm">Audrey Knafo</div>
+  <div class="links">
+    <a href="../shop/index.html" data-fr="art" data-en="art">art</a>
+    <a href="../exhibitions/index.html" data-fr="expositions" data-en="exhibitions">expositions</a>
+    <a href="../artist/index.html" data-fr="artiste" data-en="artist">artiste</a>
+    <a href="https://instagram.com/ako_audrey">Instagram</a>
+    <a href="mailto:contact@audreyknafo.com">contact</a>
+  </div>
+  <div class="fb">© 2026 · Capteuse d'âmes</div>
+</footer>
+
+<div class="proto">Prototype · v2 · Press (placeholder entries — to be filled with Audrey) · final palette TBD</div>
+
+<script>
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+</script>
+</body>
+</html>

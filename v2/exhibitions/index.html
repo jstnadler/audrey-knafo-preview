@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expositions — Audrey Knafo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FFFFFF;--ink:#111111;--muted:rgba(17,17,17,.55);--hair:rgba(17,17,17,.1);--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+
+  /* Scrim — same pattern as home for guaranteed nav contrast */
+  .scrim{position:fixed;top:0;left:0;right:0;height:170px;background:linear-gradient(to bottom,rgba(0,0,0,.45),rgba(0,0,0,0));z-index:49;pointer-events:none;transition:opacity .35s}
+  .scrim.hide{opacity:0}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,3vw,40px);transition:background .3s,color .3s,box-shadow .3s;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+  header.solid{color:var(--ink);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);text-shadow:none}
+  .wm{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+  nav.links{display:flex;gap:34px;align-items:center}
+  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.95}
+  nav.links a:hover{opacity:.7}
+  nav.links a.cur{opacity:1;border-bottom:1px solid currentColor;padding-bottom:2px}
+  .lang{display:flex;gap:8px;font-size:11px}
+  .lang button{background:none;border:none;color:inherit;font-family:var(--body);font-size:11px;letter-spacing:.12em;cursor:pointer;padding:2px;opacity:.55;text-transform:uppercase}
+  .lang button.active{opacity:1;border-bottom:1px solid currentColor}
+  .util{display:flex;gap:18px;align-items:center;font-size:11px;letter-spacing:.12em}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:inherit}
+
+  /* TITLE BAND */
+  .titleband{padding:clamp(110px,12vw,170px) clamp(20px,4vw,56px) clamp(40px,5vw,70px);max-width:1300px;margin:0 auto}
+  .titleband h1{font-weight:200;font-size:clamp(48px,7vw,110px);letter-spacing:-.015em;line-height:.95}
+  .titleband .sub{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--ink);padding-bottom:20px;margin-top:24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+  /* EXHIBITION SECTION — full-bleed image + overlay metadata */
+  .exh{position:relative;height:100vh;min-height:560px;overflow:hidden;cursor:pointer}
+  .exh img{filter:brightness(.86);transition:filter .8s,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .exh:hover img{filter:brightness(.74);transform:scale(1.02)}
+  .exh .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0) 55%)}
+  .exh .label{position:absolute;left:clamp(24px,4vw,56px);bottom:clamp(28px,5vw,60px);color:#fff;max-width:60%}
+  .exh .label .yr{font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+  .exh .label .nm{font-weight:300;font-size:clamp(28px,3.6vw,52px);line-height:1.04;margin-top:10px;letter-spacing:.005em}
+  .exh .label .venue{font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-top:12px;opacity:.9}
+  .exh .label .ct{display:inline-block;margin-top:18px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid #fff;padding-bottom:2px;opacity:0;transform:translateY(6px);transition:all .35s}
+  .exh:hover .label .ct{opacity:.95;transform:none}
+
+  footer{padding:clamp(50px,7vw,80px) clamp(24px,4vw,56px) 36px;border-top:1px solid var(--hair);text-align:center}
+  footer .fwm{font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  footer .links{margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  footer .links a{margin:0 10px}
+  footer .links a:hover{color:var(--ink)}
+  footer .fb{margin-top:24px;font-size:10px;letter-spacing:.12em;color:var(--muted)}
+
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:#111;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:6px;font-weight:500}
+
+  @media(max-width:780px){nav.links{display:none}.burger{display:block}.lang,.util{font-size:10px}}
+</style>
+</head>
+<body>
+
+<div class="scrim" id="scrim"></div>
+<header id="nav">
+  <a class="wm" href="../home/index.html">Audrey Knafo</a>
+  <nav class="links">
+    <a href="../shop/index.html" data-fr="art" data-en="art">art</a>
+    <a href="index.html" class="cur" data-fr="expositions" data-en="exhibitions">expositions</a>
+    <a href="../artist/index.html" data-fr="artiste" data-en="artist">artiste</a>
+  </nav>
+  <div class="util">
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.4">|</span><button data-lang="en">EN</button></span>
+    <span>€ EUR</span>
+    <span>◯ 0</span>
+  </div>
+  <button class="burger">≡</button>
+</header>
+
+<section class="exh">
+  <img src="../../assets/portrait-04.jpg" alt="">
+  <div class="ov"></div>
+  <div class="label">
+    <div class="yr">2025</div>
+    <div class="nm" data-fr="Capteuse d'âmes — Portraits 2025"
+         data-en="Catcher of Souls — Portraits 2025">Capteuse d'âmes — Portraits 2025</div>
+    <div class="venue" data-fr="Galerie Placeholder · Paris" data-en="Placeholder Gallery · Paris">Galerie Placeholder · Paris</div>
+    <div class="ct" data-fr="voir l'exposition →" data-en="view exhibition →">voir l'exposition →</div>
+  </div>
+</section>
+
+<section class="exh">
+  <img src="../../assets/standup-05.jpg" alt="">
+  <div class="ov"></div>
+  <div class="label">
+    <div class="yr">2024</div>
+    <div class="nm" data-fr="Sur scène — One Person Shows"
+         data-en="On Stage — One Person Shows">Sur scène — One Person Shows</div>
+    <div class="venue" data-fr="Maison de la photographie · Lyon · Mars 2024"
+         data-en="Photography House · Lyon · March 2024">Maison de la photographie · Lyon · Mars 2024</div>
+    <div class="ct" data-fr="voir l'exposition →" data-en="view exhibition →">voir l'exposition →</div>
+  </div>
+</section>
+
+<section class="exh">
+  <img src="../../assets/backstage-04.jpg" alt="">
+  <div class="ov"></div>
+  <div class="label">
+    <div class="yr">2024</div>
+    <div class="nm" data-fr="Backstage — Festival d'humour"
+         data-en="Backstage — Comedy Festival">Backstage — Festival d'humour</div>
+    <div class="venue" data-fr="Festival Off · Avignon · Juillet 2024"
+         data-en="Off Festival · Avignon · July 2024">Festival Off · Avignon · Juillet 2024</div>
+    <div class="ct" data-fr="voir l'exposition →" data-en="view exhibition →">voir l'exposition →</div>
+  </div>
+</section>
+
+<section class="exh">
+  <img src="../../assets/fashion-04.jpg" alt="">
+  <div class="ov"></div>
+  <div class="label">
+    <div class="yr">2023</div>
+    <div class="nm" data-fr="Éditorial — Cinq regards"
+         data-en="Editorial — Five Gazes">Éditorial — Cinq regards</div>
+    <div class="venue" data-fr="Galerie Placeholder · Marseille · Oct. 2023"
+         data-en="Placeholder Gallery · Marseille · Oct. 2023">Galerie Placeholder · Marseille · Oct. 2023</div>
+    <div class="ct" data-fr="voir l'exposition →" data-en="view exhibition →">voir l'exposition →</div>
+  </div>
+</section>
+
+<section class="exh">
+  <img src="../../assets/liveshow-03.jpg" alt="">
+  <div class="ov"></div>
+  <div class="label">
+    <div class="yr">2023</div>
+    <div class="nm" data-fr="Live Show — Concerts &amp; performances"
+         data-en="Live Show — Concerts &amp; performances">Live Show — Concerts &amp; performances</div>
+    <div class="venue" data-fr="Centre culturel · Bordeaux · Mai 2023"
+         data-en="Cultural Center · Bordeaux · May 2023">Centre culturel · Bordeaux · Mai 2023</div>
+    <div class="ct" data-fr="voir l'exposition →" data-en="view exhibition →">voir l'exposition →</div>
+  </div>
+</section>
+
+<footer>
+  <div class="fwm">Audrey Knafo</div>
+  <div class="links">
+    <a href="../shop/index.html" data-fr="art" data-en="art">art</a>
+    <a href="../artist/index.html" data-fr="artiste" data-en="artist">artiste</a>
+    <a href="https://instagram.com/ako_audrey">Instagram</a>
+    <a href="mailto:contact@audreyknafo.com">contact</a>
+  </div>
+  <div class="fb">© 2026 · Capteuse d'âmes</div>
+</footer>
+
+<div class="proto">Prototype · v2 · Exhibitions (placeholder entries — to be filled with Audrey) · final palette TBD</div>
+
+<script>
+  const nav=document.getElementById('nav'),scrim=document.getElementById('scrim');
+  addEventListener('scroll',()=>{const past=scrollY>140;nav.classList.toggle('solid',past);scrim.classList.toggle('hide',past)});
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();setLang(b.dataset.lang)}));
+</script>
+</body>
+</html>

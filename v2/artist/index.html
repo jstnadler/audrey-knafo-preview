@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artiste — Audrey Knafo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FFFFFF;--ink:#111111;--muted:rgba(17,17,17,.55);--hair:rgba(17,17,17,.1);--body:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+
+  header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,3vw,40px);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+  .wm{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+  nav.links{display:flex;gap:34px;align-items:center}
+  nav.links a{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+  nav.links a:hover{opacity:.55}
+  nav.links a.cur{opacity:1;border-bottom:1px solid currentColor;padding-bottom:2px}
+  .lang{display:flex;gap:8px;font-size:11px;letter-spacing:.12em}
+  .lang button{background:none;border:none;color:inherit;font-family:var(--body);font-size:11px;letter-spacing:.12em;cursor:pointer;padding:2px;opacity:.55;text-transform:uppercase}
+  .lang button.active{opacity:1;border-bottom:1px solid currentColor}
+  .util{display:flex;gap:18px;align-items:center;font-size:11px;letter-spacing:.12em;color:var(--muted)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer}
+
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;align-items:stretch}
+  .hero .img{overflow:hidden;background:#eee}
+  .hero .copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vw,90px);max-width:680px}
+  .hero .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .hero h1{font-weight:200;font-size:clamp(40px,5.5vw,80px);letter-spacing:-.01em;line-height:1;margin-top:20px}
+  .hero .quote{font-weight:300;font-style:italic;font-size:clamp(18px,1.7vw,22px);line-height:1.45;margin-top:28px;color:#333;max-width:36ch}
+  .hero .signature{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+
+  /* BIO */
+  .bio{max-width:780px;margin:0 auto;padding:clamp(70px,9vw,130px) 28px clamp(40px,5vw,70px)}
+  .bio h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+  .bio p{font-size:16px;color:#222;line-height:1.7;margin-bottom:22px}
+  .bio p:last-child{margin-bottom:0}
+
+  /* SELECTED */
+  .selected{max-width:1100px;margin:0 auto;padding:clamp(40px,5vw,70px) 28px;border-top:1px solid var(--hair)}
+  .selected h2{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;text-align:center}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,80px)}
+  .cols h3{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-bottom:18px;border-bottom:1px solid var(--hair);padding-bottom:14px}
+  .cols ul{list-style:none}
+  .cols li{font-size:14.5px;color:#333;padding:9px 0;border-bottom:1px solid var(--hair)}
+  .cols li:last-child{border-bottom:none}
+  .cols li b{font-weight:500;color:var(--ink);margin-right:8px}
+  @media(max-width:780px){.cols{grid-template-columns:1fr;gap:30px}.hero{grid-template-columns:1fr}.hero .img{aspect-ratio:4/3}}
+
+  /* INQUIRY FORM */
+  .inq{background:#fafafa;padding:clamp(70px,9vw,130px) 28px;margin-top:clamp(60px,8vw,110px);border-top:1px solid var(--hair)}
+  .inq-wrap{max-width:840px;margin:0 auto}
+  .inq h2{font-weight:200;font-size:clamp(34px,5vw,60px);letter-spacing:-.005em;line-height:1.02;text-align:center}
+  .inq .lede{text-align:center;color:var(--muted);font-size:14.5px;max-width:54ch;margin:24px auto 0;line-height:1.6}
+  .inq form{margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .inq .row{grid-column:1 / -1}
+  .inq label{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .inq input,.inq select,.inq textarea{width:100%;font-family:var(--body);font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--hair);padding:14px 16px;letter-spacing:.01em;transition:border-color .2s}
+  .inq input:focus,.inq select:focus,.inq textarea:focus{outline:none;border-color:var(--ink)}
+  .inq textarea{min-height:140px;resize:vertical;font-family:var(--body);line-height:1.55}
+  .inq select{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%23111' stroke-width='1.2' d='M1 1l4 4 4-4'/></svg>") no-repeat right 16px center;padding-right:42px;cursor:pointer}
+  .inq button{grid-column:1 / -1;margin-top:14px;background:var(--ink);color:#fff;border:1px solid var(--ink);font-family:var(--body);font-size:12px;letter-spacing:.24em;text-transform:uppercase;padding:18px;cursor:pointer;transition:all .25s}
+  .inq button:hover{background:transparent;color:var(--ink)}
+  .inq .direct{text-align:center;margin-top:36px;padding-top:30px;border-top:1px solid var(--hair);font-size:12.5px;letter-spacing:.04em;color:var(--muted)}
+  .inq .direct a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;margin:0 8px}
+  @media(max-width:600px){.inq form{grid-template-columns:1fr}}
+
+  footer{padding:clamp(50px,7vw,80px) clamp(24px,4vw,56px) 36px;border-top:1px solid var(--hair);text-align:center}
+  footer .fwm{font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  footer .links{margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  footer .links a{margin:0 10px}
+  footer .links a:hover{color:var(--ink)}
+  footer .fb{margin-top:24px;font-size:10px;letter-spacing:.12em;color:var(--muted)}
+
+  .proto{position:fixed;bottom:0;left:0;right:0;z-index:90;background:#111;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:6px;font-weight:500}
+
+  @media(max-width:780px){nav.links{display:none}.burger{display:block}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="wm" href="../home/index.html">Audrey Knafo</a>
+  <nav class="links">
+    <a href="../shop/index.html" data-fr="art" data-en="art">art</a>
+    <a href="../exhibitions/index.html" data-fr="expositions" data-en="exhibitions">expositions</a>
+    <a href="index.html" class="cur" data-fr="artiste" data-en="artist">artiste</a>
+  </nav>
+  <div class="util">
+    <span class="lang"><button class="active" data-lang="fr">FR</button><span style="opacity:.4">|</span><button data-lang="en">EN</button></span>
+    <span>€ EUR</span>
+    <span>◯ 0</span>
+  </div>
+  <button class="burger">≡</button>
+</header>
+
+<section class="hero">
+  <div class="img"><img src="../../assets/portrait-04.jpg" alt="Audrey Knafo"></div>
+  <div class="copy">
+    <div class="k" data-fr="L'artiste" data-en="The artist">L'artiste</div>
+    <h1>Audrey Knafo</h1>
+    <p class="quote" data-fr="Capteuse d'âmes, je capture l'essence des regards et l'intensité des émotions."
+       data-en="Catcher of souls — I capture the essence of gazes and the intensity of emotions.">Capteuse d'âmes, je capture l'essence des regards et l'intensité des émotions.</p>
+    <div class="signature" data-fr="Paris · France" data-en="Paris · France">Paris · France</div>
+  </div>
+</section>
+
+<section class="bio">
+  <h2 data-fr="Biographie" data-en="Biography">Biographie</h2>
+  <p data-fr="Audrey Knafo est une photographe française basée à Paris. Son travail explore l'intimité des regards et l'intensité des émotions à travers le portrait, la scène et la mode — du stand-up aux backstages, de l'éditorial au reportage."
+     data-en="Audrey Knafo is a French photographer based in Paris. Her work explores the intimacy of gazes and the intensity of emotions through portrait, performance and fashion — from stand-up comedy to backstage, from editorial to reportage.">Audrey Knafo est une photographe française basée à Paris. Son travail explore l'intimité des regards et l'intensité des émotions à travers le portrait, la scène et la mode — du stand-up aux backstages, de l'éditorial au reportage.</p>
+  <p data-fr="Elle travaille avec des artistes du spectacle vivant, des magazines et des maisons de mode, et expose son travail dans des galeries en France et à l'international."
+     data-en="She works with performing artists, magazines, and fashion houses, and exhibits her work in galleries in France and internationally.">Elle travaille avec des artistes du spectacle vivant, des magazines et des maisons de mode, et expose son travail dans des galeries en France et à l'international.</p>
+  <p data-fr="Cette page rassemble son parcours, ses expositions, ses publications et les demandes de commande ou de licence." class=""
+     data-en="This page brings together her path, exhibitions, publications, and commission or licensing inquiries.">Cette page rassemble son parcours, ses expositions, ses publications et les demandes de commande ou de licence.</p>
+</section>
+
+<section class="selected">
+  <h2 data-fr="Sélection" data-en="Selected">Sélection</h2>
+  <div class="cols">
+    <div>
+      <h3 data-fr="Collaborations" data-en="Collaborations">Collaborations</h3>
+      <ul>
+        <li data-fr="— à compléter avec Audrey" data-en="— to be filled in with Audrey">— à compléter avec Audrey</li>
+      </ul>
+    </div>
+    <div>
+      <h3 data-fr="Récompenses" data-en="Awards">Récompenses</h3>
+      <ul>
+        <li data-fr="— à compléter avec Audrey" data-en="— to be filled in with Audrey">— à compléter avec Audrey</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="inq" id="inquiries">
+  <div class="inq-wrap">
+    <h2 data-fr="Partenariat &amp; collaboration" data-en="Partnership &amp; collaboration">Partenariat &amp; collaboration</h2>
+    <p class="lede" data-fr="Pour un partenariat, une commande, une licence, une exposition, ou simplement un mot — utilisez le formulaire ci-dessous."
+       data-en="For a partnership, a commission, a license, an exhibition — or simply a hello — use the form below.">Pour un partenariat, une commande, une licence, une exposition, ou simplement un mot — utilisez le formulaire ci-dessous.</p>
+
+    <form>
+      <div>
+        <label data-fr="Prénom" data-en="First name">Prénom</label>
+        <input type="text" name="first">
+      </div>
+      <div>
+        <label data-fr="Nom" data-en="Last name">Nom</label>
+        <input type="text" name="last">
+      </div>
+      <div>
+        <label data-fr="Email" data-en="Email">Email</label>
+        <input type="email" name="email">
+      </div>
+      <div>
+        <label data-fr="Organisation (optionnel)" data-en="Organization (optional)">Organisation (optionnel)</label>
+        <input type="text" name="org">
+      </div>
+      <div class="row">
+        <label data-fr="Type de demande" data-en="Type of inquiry">Type de demande</label>
+        <select>
+          <option data-fr="Commission / shoot" data-en="Commission / shoot">Commission / shoot</option>
+          <option data-fr="Licence d'image" data-en="Image license">Licence d'image</option>
+          <option data-fr="Exposition / galerie" data-en="Exhibition / gallery">Exposition / galerie</option>
+          <option data-fr="Presse" data-en="Press">Presse</option>
+          <option data-fr="Acquisition de tirage" data-en="Print acquisition">Acquisition de tirage</option>
+          <option data-fr="Autre" data-en="Other">Autre</option>
+        </select>
+      </div>
+      <div class="row">
+        <label data-fr="Message" data-en="Message">Message</label>
+        <textarea name="msg" placeholder=""></textarea>
+      </div>
+      <button type="submit" data-fr="Envoyer" data-en="Send">Envoyer</button>
+    </form>
+
+    <div class="direct">
+      <span data-fr="Ou écrivez directement à" data-en="Or write directly to">Ou écrivez directement à</span>
+      <a href="mailto:contact@audreyknafo.com">contact@audreyknafo.com</a>
+      ·
+      <a href="https://instagram.com/ako_audrey">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fwm">Audrey Knafo</div>
+  <div class="links">
+    <a href="../shop/index.html" data-fr="art" data-en="art">art</a>
+    <a href="../exhibitions/index.html" data-fr="expositions" data-en="exhibitions">expositions</a>
+    <a href="https://instagram.com/ako_audrey">Instagram</a>
+    <a href="mailto:contact@audreyknafo.com">contact</a>
+  </div>
+  <div class="fb">© 2026 · Capteuse d'âmes</div>
+</footer>
+
+<div class="proto">Prototype · v2 · Artist page (bio + inquiries) · final palette TBD</div>
+
+<script>
+  const langBtns=document.querySelectorAll('.lang button');
+  function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-'+l+']').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});document.querySelectorAll('option[data-'+l+']').forEach(o=>{o.textContent=o.getAttribute('data-'+l)});langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l))}
+  langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+</script>
+</body>
+</html>
